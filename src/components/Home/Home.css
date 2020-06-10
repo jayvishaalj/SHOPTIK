@@ -1,0 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+.hero{
+    width: 100%;
+    z-index: -1;
+}
+
+.title{
+    font-family: 'Montserrat', sans-serif;
+    size: 50;
+}
+
+.navbar{
+    margin-top: -60%;
+}
