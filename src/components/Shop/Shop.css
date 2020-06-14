@@ -1,0 +1,88 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+.UserNavbar{
+    margin-top: -16%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.jumbotron{
+    background-color: #D8ECF9;
+}
+.shopIcon{
+    width: 30px;
+    height: 30px;
+    margin-top: -5px;
+}
+
+.logoutText{
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 5px;
+    margin-right: 20px;
+    margin-top: 15px;
+}
+
+.welcomeText{
+    font-family: 'Montserrat', sans-serif; 
+    margin-left: 40px;
+    font-size: 20px;
+}
+
+.shopProfile{
+    margin-top: 5%;
+    width: 450px;
+    height: 350px;
+}
+
+.shopIdText{
+    margin-left: 45px;
+}
+
+.buttonDiv{
+    margin-top: 5%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.productForm{
+    margin-left: 30%; 
+}
+.addProduct{
+    display: flex;
+    margin-top: 0%;
+    justify-content: center;
+    align-items: center;
+}
+
+.addItemText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    margin-left: 20%;
+}
+
+.existingStockText{
+    margin-left: 36%;
+    margin-top: 8%;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+}
+
+.itemBox{
+    display: flex;
+    /* width: 350px; */
+    height: 80px;
+    margin: 5px;
+    background-color: #C4C4C4;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
+    border-radius: 10px;
+}
+
+.itemButton{
+    margin-top: 3%;
+}
+
+.addButton{
+    margin-top: -30%;
+}

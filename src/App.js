@@ -5,26 +5,29 @@ import {
   Switch,
   Route
 } from "react-router-dom";
-import Home from './components/Home/Home'
-import About from './components/About'
+import Home from './components/Home/Home';
+import About from './components/Shop/Shop';
+import User from './components/User/User';
 
-function App() {
-  return (
-    <Router>
-      <div>
-        {/* A <Switch> looks through its children <Route>s and
-            renders the first one that matches the current URL. */}
-        <Switch>
-          <Route path="/about">
-            <About />
-          </Route>
-          <Route path="/">
-            <Home />
-          </Route>
-        </Switch>
-      </div>
-    </Router>
-  );
+
+export default function App() {
+
+      return(
+        <Router>
+          <div className="header">
+            <label>Black Lives Matter. <a href="https://support.eji.org/give/153413/#!/donation/checkout">  Support the Equal Justice Initiative</a></label>
+          </div>
+          <Switch>
+            <Route path="/user/:id" >
+             <User/>
+            </Route>
+            <Route path="/shop/:id">
+              <About />
+            </Route>
+            <Route path="/">
+              <Home />
+            </Route>
+          </Switch>
+      </Router>
+      );
 }
-
-export default App;
