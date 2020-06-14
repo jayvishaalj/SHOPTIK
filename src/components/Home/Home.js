@@ -75,7 +75,7 @@ export default function Home() {
                     <div className="navbar">
                         <label className="title">SHOPTIK</label>
                         <input className="searchbar" type="text" placeholder="search for shops"/>
-                        <img alt="hero" src={User} onClick={handleShow}/>
+                        <img alt="hero" className="shopIcon" src={User} onClick={handleShow}/>
                         <label className="signText" onClick={handleShow}>  Sign in or Register </label> 
                         <img className="shopIcon" onClick={handleShowShop} src={Shop} alt="hero" />
                         <label className="signText" onClick={handleShowShop}> Shop Login</label> 

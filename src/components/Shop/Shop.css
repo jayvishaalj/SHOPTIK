@@ -86,3 +86,29 @@
 .addButton{
     margin-top: -30%;
 }
+
+
+.headingText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    letter-spacing: 3px;
+}
+
+.dateText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: #6A6363;
+    margin-left: 5%;
+}
+
+.slotsArea{
+    margin: 40px;
+}
+
+.slotBox{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 150px;
+    height: 50px;
+}

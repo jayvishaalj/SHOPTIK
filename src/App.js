@@ -8,6 +8,7 @@ import {
 import Home from './components/Home/Home';
 import About from './components/Shop/Shop';
 import User from './components/User/User';
+import ShopToken from './components/Shop/ShopTokens';
 
 
 export default function App() {
@@ -18,6 +19,9 @@ export default function App() {
             <label>Black Lives Matter. <a href="https://support.eji.org/give/153413/#!/donation/checkout">  Support the Equal Justice Initiative</a></label>
           </div>
           <Switch>
+          <Route path="/shop/tokens/:id">
+              <ShopToken/>
+            </Route>
             <Route path="/user/:id" >
              <User/>
             </Route>
