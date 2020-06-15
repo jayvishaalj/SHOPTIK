@@ -1,0 +1,131 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@600&display=swap');
+
+.hero{
+    width: 100%;
+    z-index: -1;
+}
+.title{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 30px;
+    margin-left: 4%;
+    align-self: center;
+}
+
+.navbar{
+    margin-top: -62%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.signText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+    margin-left: 5px;
+    margin-right: 15px;
+}
+.signUpText{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 15px;
+}
+.shopIcon{
+    position: relative;
+    margin-left: 0%;
+}
+.searchbar{
+    margin-left: 8%;
+    margin-right: 4%;
+    background: #ffffff;
+    border-radius: 20px;
+    height: 35px;
+    width: 300px;
+    align-items: center;
+    text-align: start;
+    text-align: center;
+}
+
+.mainblock{
+    position: relative;
+    margin-top: 60%;
+}
+
+.mainSectionHeading{
+    color: #6A6666;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 25px;
+    text-align: center;
+    align-self: center;
+    margin-left: 20%;
+    letter-spacing: 5px;
+}
+
+.wrongUserCred{
+    color: red;
+}
+
+.welcomeInfo{
+margin-top: 2%;
+/* margin-right: 2%; */
+}
+
+.sideNav{
+    margin-right: 2%;
+}
+
+.mainbg{
+ /* position: relative; */
+}
+
+.admin-bg{
+    background-image: url('../../assets/covid.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    z-index: -1;
+    height: 100vh;
+}
+
+.UserNavbar{
+    /* position: sticky;
+    top: 0; */
+}
+
+.bottom-buttons{
+    position: absolute;
+    bottom: 20px;
+    display: block;
+    width: 100%;
+   
+}
+
+.bottom-buttons-item{
+    font-family: 'Montserrat', sans-serif;
+    border:none;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.bottom-buttons-item:hover{
+    /* font-family: 'Montserrat', sans-serif; */
+    /* border: 2px solid black; */
+    /* border-radius: 20px; */
+    background-color: blueviolet;
+}
+
+.danger{
+    background-color: crimson;
+}
+
+.track-form-heading{
+    font-family: 'Montserrat', sans-serif;
+font-size: large;
+}
+.track-form-container{
+    width: 100%;
+    margin-top: 2%;
+    justify-content: center;
+    align-items: center;
+}
+.track-form{
+    width: 60%;
+    margin: auto;
+}

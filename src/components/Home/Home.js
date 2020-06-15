@@ -12,11 +12,13 @@ export default function Home() {
 
     const [ userPageRedirect ,setUserPageRedirect ] = useState(false);
     const [ shopPageRedirect ,setShopPageRedirect ] = useState(false);
+    const [ adminPageRedirect, setAdminPageRedirect ] = useState(false);
     const [show, setShow] = useState(false);
     const [showShop, setShowShop] = useState(false);
     const [wrongCred,setWrongCred] = useState(false);
     const [userId,setUserId] = useState(null);
     const [shopId,setShopId] = useState(null);
+    const [adminId, setAdminId] = useState(null);
 
 
     const handleClose = () => setShow(false);
@@ -48,15 +50,28 @@ export default function Home() {
         const email = e.target.elements.formBasicEmail.value;
         const pwd = e.target.elements.formBasicPassword.value
         console.log(email, pwd);
+        setWrongCred(false);
         //login api for user must be called
-        if(pwd !== "admin"){
+        switch(pwd){
+            case 'shopkeeper': {
+                setShopPageRedirect(true);
+                setShopId(1);//
+                break;
+            }
+            case 'admin':{
+                setAdminPageRedirect(true);
+                setAdminId(1);
+                break;
+            }
+            case 'customer':{
+                setUserPageRedirect(1)
+                setUserPageRedirect(1)
+                break;
+            }
+            default:
+                {
             setWrongCred(true);
-        }
-        else
-        {
-            setWrongCred(false);
-            setShopPageRedirect(true);
-            setShopId(1);//here set the shop id is as public key got from backend
+            }
         }
     }
     if(userPageRedirect){
@@ -65,6 +80,10 @@ export default function Home() {
     }
     else if(shopPageRedirect){
         let url = "/shop/"+shopId;
+        return <Redirect to={url} />
+    }
+    else if(adminPageRedirect){
+        let url = "/admin/"+adminId;
         return <Redirect to={url} />
     }
     else{
