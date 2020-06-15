@@ -81,7 +81,7 @@ export default function Shop() {
     else
     {
         return(
-            <div>
+            <div className='shop-bg'>
                 <img alt="hero" className="hero" src={Hero} />
                 <div className="UserNavbar">
                     <label className="title">SHOPTIK</label>

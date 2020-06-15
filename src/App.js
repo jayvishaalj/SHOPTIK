@@ -9,14 +9,14 @@ import Home from './components/Home/Home';
 import About from './components/Shop/Shop';
 import User from './components/User/User';
 import ShopToken from './components/Shop/ShopTokens';
-
+import Admin from './components/Admin/Admin'
 
 export default function App() {
 
       return(
         <Router>
           <div className="header">
-            <label>Black Lives Matter. <a href="https://support.eji.org/give/153413/#!/donation/checkout">  Support the Equal Justice Initiative</a></label>
+            <label>Black Lives Matter. <a href="https://support.eji.org/give/153413/#!/donation/checkout" target='_blank'>  Support the Equal Justice Initiative</a></label>
           </div>
           <Switch>
           <Route path="/shop/tokens/:id">
@@ -27,6 +27,9 @@ export default function App() {
             </Route>
             <Route path="/shop/:id">
               <About />
+            </Route>
+            <Route path="/admin/:id">
+              <Admin />
             </Route>
             <Route path="/">
               <Home />
