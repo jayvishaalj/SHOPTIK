@@ -13,6 +13,8 @@ export default function User() {
         const [userLogoutRedirect, setUserLogoutRedirect] = useState(false);
         const [shopsList, setShopsList] = useState([]);
         const [isLoading, setIsLoading] = useState(true);
+        const[userShopTokenRedirect, setUserShopTokenRedirect] = useState(false);
+        const [selectedShopId, setSelectedShopId] = useState('');
 
         useEffect(() =>{
             let apiUrl = BASE_URL + '/api/shop/nearme';
@@ -27,10 +29,21 @@ export default function User() {
 
         const handleLogout = () =>{
             setUserLogoutRedirect(true);
+            setUserShopTokenRedirect(true);
         }
 
+        const handleBookTicket = (shopId) => {
+            console.log("shopId",shopId);
+            setSelectedShopId(shopId);
+            setUserShopTokenRedirect(true);
+        }
         if(userLogoutRedirect){
             let url = "/"
+            return <Redirect to={url}/>
+        }
+        else if(userShopTokenRedirect)
+        {  
+            let url = "/user/shop/"+selectedShopId;
             return <Redirect to={url}/>
         }
         else
@@ -59,9 +72,11 @@ export default function User() {
                             <div className="jumbotronBackGround">
                                 <p className="welcomeText">Welcome,</p>
                                 <p className="welcomeText">Your id : {id}</p>
+                                <marquee>SHOP SAFE WITH US, STAY SAFE, STAY HOME !!!</marquee>
                                 <p className="bookTicketHeading">BOOK YOUR TOKENS</p>
                         </div> 
                         </div>
+                        <input className="searchBarShops" type="text" placeholder="search for shops"/>
                         <div className="grid-container">
                             {shopsList.map(shop => 
                                 <div className="grid-item">
@@ -83,7 +98,7 @@ export default function User() {
                                                     <li className="itemText">{shop.products[2][0]}</li>
                                                     <li className="itemText">{shop.products[3][0]}</li>
                                                 </ul> 
-                                                <Button className="toggleButton" variant="primary">Book Token</Button>
+                                                <Button className="toggleButton" variant="primary" onClick={() => handleBookTicket(shop.shop.id)}>Book Token</Button>
                                                 <Accordion.Toggle as={Button}  className="toggleButton" variant="button" eventKey="1">
                                                    All Items
                                                 </Accordion.Toggle>

@@ -8,7 +8,7 @@
 }
 .jumbotronBackGround{
     background-color: #D8ECF9;
-    min-height: 300px;
+    min-height:200px;
     padding: 5%;
 }
 .shopIcon{
@@ -29,8 +29,8 @@
 }
 
 .bookTicketHeading{
-    margin-left: 32%;
-    margin-top: 8%;
+    margin-left: 35%;
+    margin-top: 2%;
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
 }
@@ -93,9 +93,10 @@
 }
 
 .imageCard{
-    width: 25%;
-    height: 30%;
+    width: 250px;
+    height: 125px;
     margin-top: 10%;
+    border-radius: 15px;
 }
 
 .shopHeadingText{
@@ -122,7 +123,7 @@
 }
 
 .itemInShopText{
-    font-family: cursive;
+    font-family: monospace;
     font-size: 18px;
     margin-top: 15%;
 }
@@ -150,4 +151,36 @@
 
 .itemListCard{
     background: #FFEBE7;
+}
+
+.searchBarShops{
+    margin-left: 40%;
+    margin-top: 2%;
+    background: #ffffff;
+    border-radius: 20px;
+    height: 35px;
+    width: 300px;
+    align-items: center;
+    text-align: start;
+    text-align: center;
+}
+
+.buttonsModal{
+    display: flex;
+    justify-content: space-between;
+    padding-left: 30%;
+    padding-right: 30%;
+}
+
+.displaySelectedSlot{
+    font-family: 'Montserrat', sans-serif;
+    font-size: large;
+    margin-left: 35%;
+    margin-bottom: 8%;
+}
+
+.displaySelectedShop{
+    font-family: 'Montserrat', sans-serif;
+    font-size: large;
+    margin-left: 15%;
 }

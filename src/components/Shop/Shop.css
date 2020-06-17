@@ -30,8 +30,9 @@
 
 .shopProfile{
     margin-top: 5%;
-    width: 150px;
-    height: 150px;
+    width: 600px;
+    height: 350px;
+    border-radius: 20px;
 }
 
 .shopIdText{
