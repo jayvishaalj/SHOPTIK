@@ -19,7 +19,7 @@ export default function Home() {
     const [userId,setUserId] = useState(null);
     const [shopId,setShopId] = useState(null);
     const [adminId, setAdminId] = useState(null);
-
+    const BASE_URL = 'https://spider.nitt.edu/chainrunner';
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -33,15 +33,22 @@ export default function Home() {
         const pwd = e.target.elements.formBasicPassword.value
         console.log(email, pwd);
         //login api for user must be called
-        if(pwd !== "admin"){
-            setWrongCred(true);
-        }
-        else
-        {
-            setWrongCred(false);
-            setUserPageRedirect(true);
-            setUserId(1);//here set the user id is as public key got from backend
-        }
+        let url = BASE_URL+'/api/user/login/'+email+'/'+pwd;
+        console.log(url);
+        fetch(url)
+        .then(res => res.json())
+        .then(resJson => {
+            console.log(resJson);
+            if(resJson.success == true){
+                setWrongCred(false);
+                setUserId(resJson.id);
+                setUserPageRedirect(true);
+                
+            }
+            else{
+                setWrongCred(true);
+            }
+        });
     }
 
     const shopLogin = (e) => {
@@ -50,29 +57,21 @@ export default function Home() {
         const email = e.target.elements.formBasicEmail.value;
         const pwd = e.target.elements.formBasicPassword.value
         console.log(email, pwd);
-        setWrongCred(false);
-        //login api for user must be called
-        switch(pwd){
-            case 'shopkeeper': {
+        let url = BASE_URL+'/api/shop/login/'+email+'/'+pwd;
+        console.log(url);
+        fetch(url)
+        .then(res => res.json())
+        .then(resJson => {
+            console.log(resJson);
+            if(resJson.success == true){
+                setWrongCred(false);
+                setShopId(resJson.id);
                 setShopPageRedirect(true);
-                setShopId(1);//
-                break;
             }
-            case 'admin':{
-                setAdminPageRedirect(true);
-                setAdminId(1);
-                break;
+            else{
+                setWrongCred(true);
             }
-            case 'customer':{
-                setUserPageRedirect(1)
-                setUserPageRedirect(1)
-                break;
-            }
-            default:
-                {
-            setWrongCred(true);
-            }
-        }
+        });
     }
     if(userPageRedirect){
         let url = "/user/"+userId;
@@ -197,3 +196,25 @@ export default function Home() {
 //         console.log("Department--"+this.refs.department.value.trim()); 
 //         console.log("Comments--"+this.refs.comment.value.trim()); 
 //     }
+//login api for user must be called
+        // switch(pwd){
+        //     case 'shopkeeper': {
+        //         setShopPageRedirect(true);
+        //         setShopId(1);//
+        //         break;
+        //     }
+        //     case 'admin':{
+        //         setAdminPageRedirect(true);
+        //         setAdminId(1);
+        //         break;
+        //     }
+        //     case 'customer':{
+        //         setUserPageRedirect(1)
+        //         setUserPageRedirect(1)
+        //         break;
+        //     }
+        //     default:
+        //         {
+        //     setWrongCred(true);
+        //     }
+        // }
