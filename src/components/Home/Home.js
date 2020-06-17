@@ -15,6 +15,7 @@ export default function Home() {
     const [ adminPageRedirect, setAdminPageRedirect ] = useState(false);
     const [show, setShow] = useState(false);
     const [showShop, setShowShop] = useState(false);
+    const [showAdmin, setShowAdmin] = useState(false);
     const [wrongCred,setWrongCred] = useState(false);
     const [userId,setUserId] = useState(null);
     const [shopId,setShopId] = useState(null);
@@ -23,6 +24,8 @@ export default function Home() {
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const handleAdminClose = () => setShowAdmin(false);
+    const handleAdminShow = () => setShowAdmin(true);
     const handleCloseShop = () => setShowShop(false);
     const handleShowShop = () => setShowShop(true);
 
@@ -73,6 +76,29 @@ export default function Home() {
             }
         });
     }
+
+    const adminLogin = (e) => {
+        e.preventDefault();
+        console.log("ADMIN LOGINED");
+        const email = e.target.elements.formBasicEmail.value;
+        const pwd = e.target.elements.formBasicPassword.value
+        console.log(email, pwd);
+        let url = BASE_URL+'/api/admin/login/'+email+'/'+pwd;
+        console.log(url);
+        fetch(url)
+        .then(res => res.json())
+        .then(resJson => {
+            console.log(resJson);
+            if(resJson.success == true){
+                setWrongCred(false);
+                setAdminId('0x83623E189eFF48247D8c303b1e95BC36560C41a2');
+                setAdminPageRedirect(true);
+            }
+            else{
+                setWrongCred(true);
+            }
+        });
+    }
     if(userPageRedirect){
         let url = "/user/"+userId;
         return <Redirect to={url}/>
@@ -97,6 +123,8 @@ export default function Home() {
                         <label className="signText" onClick={handleShow}>  Sign in or Register </label> 
                         <img className="shopIcon" onClick={handleShowShop} src={Shop} alt="hero" />
                         <label className="signText" onClick={handleShowShop}> Shop Login</label> 
+                        <img alt="hero" className="shopIcon" src={User} onClick={handleAdminShow}/>
+                        <label className="signText" onClick={handleAdminShow}>  Admin </label> 
                     </div>
                     <div className="mainblock">
                         <label className="mainSectionHeading">SHOPS THAT HAVE YOUR NEEDS READY</label>
@@ -155,6 +183,43 @@ export default function Home() {
                     <Modal.Body>
                         {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
                         <Form onSubmit={shopLogin}>
+                            <Form.Group  controlId="formBasicEmail">
+                                <Form.Label>Email address</Form.Label>
+                                <Form.Control  type="email" placeholder="Enter email" />
+                                <Form.Text className="text-muted">
+                                We'll never share your email with anyone else.
+                                </Form.Text>
+                            </Form.Group>
+    
+                            <Form.Group controlId="formBasicPassword">
+                                <Form.Label>Password</Form.Label>
+                                <Form.Control type="password" placeholder="Password" />
+                            </Form.Group>
+                            <Form.Group controlId="formBasicCheckbox">
+                                <Form.Check type="checkbox" label="Remember me" />
+                            </Form.Group>
+                            <center>
+                                <Button variant="primary" type="submit">
+                                Login
+                                </Button>
+                            </center>
+                        </Form>
+                    </Modal.Body>
+                </Modal>
+
+
+                <Modal
+                size="lg"
+                aria-labelledby="contained-modal-title-vcenter"
+                centered
+                show={showAdmin} 
+                onHide={handleAdminClose}>
+                    <Modal.Header closeButton>
+                    <Modal.Title>Shop Login</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>
+                        {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
+                        <Form onSubmit={adminLogin}>
                             <Form.Group  controlId="formBasicEmail">
                                 <Form.Label>Email address</Form.Label>
                                 <Form.Control  type="email" placeholder="Enter email" />
