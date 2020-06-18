@@ -70,19 +70,19 @@ export default function Home() {
         let url = BASE_URL + '/api/user/login/' + email + '/' + pwd;
         console.log(url);
         fetch(url)
-            .then(res => res.json())
-            .then(resJson => {
-                console.log(resJson);
-                if (resJson.success == true) {
-                    setWrongCred(false);
-                    setUserId(resJson.id);
-                    setUserPageRedirect(true);
-
-                }
-                else {
-                    setWrongCred(true);
-                }
-            });
+        .then(res => res.json())
+        .then(resJson => {
+            console.log(resJson);
+            if(resJson.success === true){
+                setWrongCred(false);
+                setUserId(resJson.id);
+                setUserPageRedirect(true);
+                
+            }
+            else{
+                setWrongCred(true);
+            }
+        });
     }
 
     const shopLogin = (e) => {
@@ -94,18 +94,18 @@ export default function Home() {
         let url = BASE_URL + '/api/shop/login/' + email + '/' + pwd;
         console.log(url);
         fetch(url)
-            .then(res => res.json())
-            .then(resJson => {
-                console.log(resJson);
-                if (resJson.success == true) {
-                    setWrongCred(false);
-                    setShopId(resJson.id);
-                    setShopPageRedirect(true);
-                }
-                else {
-                    setWrongCred(true);
-                }
-            });
+        .then(res => res.json())
+        .then(resJson => {
+            console.log(resJson);
+            if(resJson.success === true){
+                setWrongCred(false);
+                setShopId(resJson.id);
+                setShopPageRedirect(true);
+            }
+            else{
+                setWrongCred(true);
+            }
+        });
     }
 
     const adminLogin = (e) => {
@@ -117,18 +117,18 @@ export default function Home() {
         let url = BASE_URL + '/api/admin/login/' + email + '/' + pwd;
         console.log(url);
         fetch(url)
-            .then(res => res.json())
-            .then(resJson => {
-                console.log(resJson);
-                if (resJson.success == true) {
-                    setWrongCred(false);
-                    setAdminId('0x83623E189eFF48247D8c303b1e95BC36560C41a2');
-                    setAdminPageRedirect(true);
-                }
-                else {
-                    setWrongCred(true);
-                }
-            });
+        .then(res => res.json())
+        .then(resJson => {
+            console.log(resJson);
+            if(resJson.success === true){
+                setWrongCred(false);
+                setAdminId('0x83623E189eFF48247D8c303b1e95BC36560C41a2');
+                setAdminPageRedirect(true);
+            }
+            else{
+                setWrongCred(true);
+            }
+        });
     }
     if (userPageRedirect) {
         let url = "/user/" + userId;
@@ -335,11 +335,7 @@ export default function Home() {
                     show={showAdmin}
                     onHide={handleAdminClose}>
                     <Modal.Header closeButton>
-
-                        <Modal.Title>
-                            Admin Login
-                        </Modal.Title>
-
+                    <Modal.Title>Admin Login</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         <div>

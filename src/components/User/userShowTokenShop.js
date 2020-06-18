@@ -3,13 +3,13 @@ import { useParams, Redirect } from 'react-router-dom';
 import Hero from '../../assets/header.png';
 import ShopLogo from '../../assets/shop.png';
 import '../Shop/Shop.css';
-import { Button, Tooltip, OverlayTrigger, Modal } from 'react-bootstrap';
+import { Button, Tooltip, OverlayTrigger, Modal, Spinner } from 'react-bootstrap';
 import ReactLoading from 'react-loading';
 import axios from 'axios';
 
 export default function ShopToken(){
 
-    let { id } = useParams();
+    let { id, userId } = useParams();
     const BASE_URL = 'https://spider.nitt.edu/chainrunner';
     const [isLoading, setIsLoading] = useState(true);
     const [shopName, setShopName] = useState('');
@@ -19,6 +19,9 @@ export default function ShopToken(){
     const [shopTokensBooked, setShopTokensBooked] = useState([]);
     const[ showTookenBook, setShowTookenBook] = useState(false);
     const [selectedSlot, setSelectedSlot] = useState(null);
+    const [selectedDay, setSelectedDay] = useState(null);
+    const[bookingTicket, setBookingTicket]  = useState(false);
+    const [userHomePageRedirect, setuserHomePageRedirect] = useState(false);
 
     var days = [];
     var someDate = new Date();
@@ -41,12 +44,6 @@ export default function ShopToken(){
             setHoldLimit(response.hold_limit);
             let shopTokens = [];
             let i =0;
-            let apiUrl = BASE_URL+'/api/shop/tokens/booked/'+days[i]+'/'+id;
-            // await axios.get(apiUrl).then(response => {
-            //     console.log(response.data);
-            //     setShopTokensBooked(response.data);    
-            //     setIsLoading(false);            
-            // });
             for(i=0;i<7;i++){
                 console.log(days);
                 let apiUrl = BASE_URL+'/api/shop/tokens/booked/'+days[i]+'/'+id;
@@ -73,15 +70,51 @@ export default function ShopToken(){
 
     const handleClose = () => setShowTookenBook(false);
 
-    const handleBookToken = (slotId) => {
-        console.log(slotId);
+    const handleBookToken = (slotId,day) => {
+        console.log(slotId, day);
         setSelectedSlot(slotId);
+        setSelectedDay(day);
         setShowTookenBook(true);
+    }
+
+    const handleConfirmBookToken = () => {
+        let apiUrl = BASE_URL + '/api/book/token';
+        setBookingTicket(true);
+        axios.post(apiUrl,{
+            "custId":userId,
+            "shopId":id,
+            "slot": selectedDay+ " " +selectedSlot+":00"
+        }).then(response => {
+            setBookingTicket(false);
+            console.log(response.data);
+            if(response.data !== null){
+                if(response.data.success == true){
+                    alert("TOKEN BOOKED SUCCESSFULLY");
+                }
+                else{
+                    alert("TOKEN NOT BOOKED");
+                }
+            }
+            else{
+                alert("TOKEN ALREADY BOOKED");
+            }
+            handleClose();
+            
+        })
+        
+    }
+
+    const handleUserHomePageRedirect = () => {
+        setuserHomePageRedirect(true);
     }
 
     if(shopLogoutRedirect){
         let url = "/"
         return <Redirect to={url}/>
+    }
+    else if(userHomePageRedirect){
+        let url= "/user/"+userId;
+        return <Redirect to={url} />
     }
     else{
         if(isLoading){
@@ -98,6 +131,7 @@ export default function ShopToken(){
                         <img alt="hero" className="hero" src={Hero} />
                         <div className="UserNavbar">
                             <label className="title">SHOPTIK</label>
+                            <label className="logoutText" onClick={handleUserHomePageRedirect}>Home</label>
                             <div>
                             <img className="shopIcon" onClick={handleLogout} src={ShopLogo} alt="icon"/>
                             <label classNaTODAYme="logoutText" onClick={handleLogout}>Logout</label>
@@ -114,7 +148,7 @@ export default function ShopToken(){
                         <div>
                             <center><label className="headingText" onClick={() => {
                                 console.log(shopTokensBooked);
-                            }}>SLOTS BOOKED FOR YOUR STORE</label></center>
+                            }}>BOOK YOUR SLOT IN {shopName}</label></center>
                             {shopTokensBooked.map(token => 
                                 <div key={token.day}>
                                     <label className="dateText">{token.day} : </label>
@@ -126,11 +160,11 @@ export default function ShopToken(){
                                             placement='top'
                                             overlay={
                                                 <Tooltip id={`tooltip-${json.slot}`}>
-                                                Tokens Sold : <strong>{json.count}</strong>.
+                                                Tokens Remaining : <strong>{holdLimit-json.count}</strong>.
                                                 </Tooltip>
                                             }
                                             >
-                                                <Button className="slotBox" variant={"outline-"+json.class} onClick={() => handleBookToken(json.slot)}>{json.slot}</Button>
+                                                <Button className="slotBox" variant={"outline-"+json.class} onClick={() => handleBookToken(json.slot,token.day)}>{json.slot}</Button>
                                             </OverlayTrigger>                         
                                         )
                                     }
@@ -149,11 +183,14 @@ export default function ShopToken(){
                     </Modal.Header>
                     <Modal.Body>
                         <p className="displaySelectedShop"> SHOP ID : {id}</p>
+                        <p className="displaySelectedShop"> USER ID : {userId}</p>
                         <label className="displaySelectedSlot"> SELECTED SLOT : {selectedSlot}</label>
+                        <label className="displaySelectedSlot"> SELECTED DATE : {selectedDay}</label>
                         <div className="buttonsModal">
-                        <Button variant="success">Confirm</Button>
+                        <Button variant="success" onClick={handleConfirmBookToken}>Confirm</Button>
                         <Button variant="danger" onClick={handleClose}>Cancel</Button>
                         </div>
+                        { bookingTicket && (<center><Spinner animation="border" variant="primary" /></center>)}
                     </Modal.Body>
                 </Modal>
                 </div>

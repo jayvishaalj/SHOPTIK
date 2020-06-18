@@ -11,6 +11,7 @@ import User from './components/User/User';
 import ShopToken from './components/Shop/ShopTokens';
 import Admin from './components/Admin/Admin';
 import UserShopToken from './components/User/userShowTokenShop.js';
+import UserBookingHistory from './components/User/UserBookingHistory.js';
 
 export default function App() {
 
@@ -20,23 +21,26 @@ export default function App() {
             <label>Black Lives Matter. <a href="https://support.eji.org/give/153413/#!/donation/checkout" target='_blank'>  Support the Equal Justice Initiative</a></label>
           </div>
           <Switch>
-          <Route path="/user/shop/:id">
-              <UserShopToken/>
+            <Route path="/user/booked-tokens/:id">
+                <UserBookingHistory/>
             </Route>
-          <Route path="/shop/tokens/:id">
-              <ShopToken/>
+            <Route path="/user/shop/:id/:userId">
+                <UserShopToken/>
+            </Route>
+            <Route path="/shop/tokens/:id">
+                <ShopToken/>
             </Route>
             <Route path="/user/:id" >
-             <User/>
+                <User/>
             </Route>
             <Route path="/shop/:id">
-              <About />
+               <About />
             </Route>
             <Route path="/admin/:id">
-              <Admin />
+               <Admin />
             </Route>
             <Route path="/">
-              <Home />
+                <Home />
             </Route>
           </Switch>
       </Router>

@@ -8,7 +8,7 @@ import "./Admin.css"
 import axios from 'axios';
 
 // import './Shop.css';
-import { Button, Modal, Form, Col, Container, Row, Spinner, Table } from 'react-bootstrap';
+import { Button, Modal, Form, Col, Container, Row, Spinner, Table } from 'react-bootstrap'
 // var DatePicker = require("react-bootstrap-date-picker");
 import "react-datepicker/dist/react-datepicker.css";
 

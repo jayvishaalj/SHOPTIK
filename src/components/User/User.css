@@ -176,11 +176,23 @@
     font-family: 'Montserrat', sans-serif;
     font-size: large;
     margin-left: 35%;
-    margin-bottom: 8%;
+    margin-bottom: 2%;
 }
 
 .displaySelectedShop{
     font-family: 'Montserrat', sans-serif;
     font-size: large;
     margin-left: 15%;
+}
+
+.displayDetails{
+    font-family: monospace;
+    font-size: 20px;
+    padding: 2%;
+}
+
+.buttonsOnReportModal{
+    padding: 3%;
+    display: flex;
+    justify-content: space-between;
 }
