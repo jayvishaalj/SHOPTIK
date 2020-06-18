@@ -145,7 +145,7 @@ export default function Home() {
                         <label className="signText" onClick={handleAdminShow}>  Admin </label> 
                     </div>
                     <div className="mainblock">
-                    <label className="mainSectionHeading">SHOPS THAT HAVE YOUR NEEDS READY</label>
+                        <label className="mainSectionHeading">SHOPS THAT HAVE YOUR NEEDS READY</label>
                         <br/>
                         <button className = "loginRedirect" onClick={startBook}> <label className="startText"> CLICK HERE TO START BOOKING</label> </button>
                         <br/>
@@ -163,6 +163,7 @@ export default function Home() {
                             <img src = {img6} alt="img6" className="SecondRightImage" />
                             <img src = {img7} alt="img7" className="FooterImage" />
                             <img src = {img8} alt="img8" className="FooterText" />
+                            
                     </div>
                     <label className="Copyright">copyright@BlockedDown</label>
                 </div>
