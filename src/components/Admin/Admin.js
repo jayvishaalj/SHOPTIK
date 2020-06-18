@@ -6,6 +6,8 @@ import adminBack from '../../assets/covid.jpg'
 import DatePicker from "react-datepicker";
 import "./Admin.css"
 import axios from 'axios';
+import TextInput from 'react-autocomplete-input';
+import 'react-autocomplete-input/dist/bundle.css';
 
 // import './Shop.css';
 import { Button, Modal, Form, Col, Container, Row, Spinner, Table } from 'react-bootstrap'
@@ -19,8 +21,8 @@ function CustomTable({ id, data }) {
             <div>
                 <div>
                     <span className='customer-title'>{id}</span>
-                
-               
+
+
                     <Button className='bottom-buttons-item danger track-display-button'> Mark as Carrier</Button>
                 </div>
             </div>
@@ -41,8 +43,8 @@ function CustomTable({ id, data }) {
                         let hours = date.getHours()
                         // console.log(hours)
                         const ampmst = hours >= 12 ? "PM" : "AM";
-                        hours = hours >=12 ? hours-=12 : hours;
-                        hours = hours<=9 ? '0' + hours : hours;
+                        hours = hours >= 12 ? hours -= 12 : hours;
+                        hours = hours <= 9 ? '0' + hours : hours;
                         const ts = date.getDate() + ' ' + month + ' ' + date.getFullYear() + ' ' + hours + ':' + date.getMinutes() + ' ' + ampmst;
                         return (
                             <tr>
@@ -68,8 +70,28 @@ export default function Admin() {
     const [trackDate, setTrackDate] = useState(new Date())
     const [trackError, setTrackError] = useState(false)
     const [trackResponseData, setTrackResponseData] = useState(false)
+    const [custNames, setCustNames] = useState([])
+    const [custTempNames, setCustTempNames] = useState([])
 
     useEffect(() => {
+        // console.log("useeffect called")
+        let apiUrl = BASE_URL + '/api/customer/names'
+        // console.log("this is bse url")
+        let return_array = []
+        fetch(apiUrl).then(res => res.json()).then(resJson => {
+            // console.log("this is resjson", resJson)
+            setCustNames(resJson)
+            // let return_array = []
+            resJson.forEach(ele => {
+                return_array.push(ele.name + "  (" + ele.email + ")")
+            })
+            // console.log("this is return array", return_array)
+            setCustTempNames(return_array)
+
+        })
+
+
+
     }, []);
 
     const handleClose = () => setShowTrackForm(false);
@@ -93,9 +115,18 @@ export default function Admin() {
         setTrackResponseData(false);
         e.preventDefault()
         let apiUrl = BASE_URL + '/api/track'
-        let cust_id = e.target.elements.customerId.value
+        let cust_deets = e.target.elements.customerId.value
+        let email_string = cust_deets.split("(")[1]
+        // console.log("email string:", email_string)
+        let email = email_string.substring(0, email_string.length - 2)
+        // console.log("email::: ", email)
+        let cust_id = custNames.filter(ele => {
+            if(ele.email === email)
+            return ele.id
+        })
+        // console.log("this is cust id: ", cust_id)
         axios.post(apiUrl, {
-            "customer_id": e.target.elements.customerId.value,
+            "customer_id": cust_id[0].id,
             "admin_id": id,
             "date": e.target.elements.date.value
         }).then(response => {
@@ -105,7 +136,7 @@ export default function Admin() {
             if (response.status == 200 && response.data.length !== 0) {
                 handleClose()
                 setTrackResponseData({
-                    "id": cust_id,
+                    "id": cust_id[0].id,
                     "data": response.data
                 })
             }
@@ -168,7 +199,19 @@ export default function Admin() {
                         <Form onSubmit={handleTrackSubmit}>
                             <Form.Group >
                                 <Form.Label>Name of person</Form.Label>
-                                <Form.Control type="text" placeholder="Enter name" name='customerId' />
+                                <div style={{width: "100%", display: 'inline-block'}}>
+                                <TextInput
+                                    options={custTempNames}
+                                    maxOptions={0}
+                                    offsetY={20} 
+                                    minChars={2}
+                                    trigger={''}
+                                    Component={"input"}
+                                    className="autocomplete-text"
+                                    name='customerId'
+                                    // matchAny
+                                    />
+                                    </div>
                                 <Form.Text className="text-muted">
                                 </Form.Text>
                             </Form.Group>

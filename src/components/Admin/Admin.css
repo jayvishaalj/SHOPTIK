@@ -159,3 +159,8 @@ font-size: large;
     font-family: 'Montserrat', sans-serif;
     font-size: 2em;
 }
+
+.autocomplete-text{
+    width: 100%;
+    display: inline-block;
+}
