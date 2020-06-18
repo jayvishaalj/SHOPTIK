@@ -65,6 +65,9 @@
 
 .welcomeInfo{
 margin-top: 2%;
+width: 200px;
+hyphens: auto;
+word-wrap: break-word;
 /* margin-right: 2%; */
 }
 
@@ -73,6 +76,7 @@ margin-top: 2%;
 }
 
 .mainbg{
+    z-index:2;
  /* position: relative; */
 }
 
@@ -128,4 +132,30 @@ font-size: large;
 .track-form{
     width: 60%;
     margin: auto;
+}
+.mainbg-body{
+    z-index:20;
+    width: 100%;
+    justify-content: center;
+    /* background-color: rgb(195, 248, 239); */
+    /* margin: 20px; */
+    position: relative;
+    display: flex;
+}
+
+.table-container{
+    justify-content: center;
+    padding: 50px;
+    /* width: 60%; */
+    box-shadow: 0 20px 50px rgba(194, 194, 196, 0.952);
+    background-color:#fff
+}
+
+.track-display-button{
+    float: right;
+}
+.customer-title{
+    font-weight: bolder;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 2em;
 }
