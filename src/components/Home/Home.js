@@ -5,6 +5,18 @@ import Shop from '../../assets/shop.png';
 import './Home.css';
 import { Button, Modal, Form } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
+import img1 from '../../assets/leftimage.png';
+import img2 from '../../assets/rightimage.png';
+import img3 from '../../assets/MarketCard.png';
+import img4 from '../../assets/ShopByCategory.png';
+import img5 from '../../assets/Showyourticketatstorefront.png';
+import img6 from '../../assets/secondrightimage.png';
+import img7 from '../../assets/FooterImage.png';
+import img8 from '../../assets/FooterText.png';
+import img9 from '../../assets/Copyright.png';
+import img10 from '../../assets/Rel1.png';
+import img11 from '../../assets/Rel2.png';
+import img12 from '../../assets/Rel3.png';
 
 
 
@@ -99,6 +111,12 @@ export default function Home() {
             }
         });
     }
+
+    const startBook = () => {
+        handleShow();
+    }
+
+    
     if(userPageRedirect){
         let url = "/user/"+userId;
         return <Redirect to={url}/>
@@ -127,11 +145,26 @@ export default function Home() {
                         <label className="signText" onClick={handleAdminShow}>  Admin </label> 
                     </div>
                     <div className="mainblock">
-                        <label className="mainSectionHeading">SHOPS THAT HAVE YOUR NEEDS READY</label>
+                    <label className="mainSectionHeading">SHOPS THAT HAVE YOUR NEEDS READY</label>
                         <br/>
+                        <button className = "loginRedirect" onClick={startBook}> <label className="startText"> CLICK HERE TO START BOOKING</label> </button>
                         <br/>
+                        <div>
+                            <img src={img10} alt="img10" className="Rel1" />
+                            <img src={img11} alt="img11" className="Rel2" />
+                            <img src={img12} alt="img12" className="Rel3" />
+                            <img src={img1} alt="img1" className="leftImage" />
+                            <img src={img2} alt="img2" className="rightImage" />
+                        </div>
                         <br/>
+                            <img src = {img3} alt="img3" className="middleImage" />
+                            <img src = {img4} alt="img4" className="SecondMiddleImage" />
+                            <img src = {img5} alt="img5" className="SecondLeftImage" />
+                            <img src = {img6} alt="img6" className="SecondRightImage" />
+                            <img src = {img7} alt="img7" className="FooterImage" />
+                            <img src = {img8} alt="img8" className="FooterText" />
                     </div>
+                    <label className="Copyright">copyright@BlockedDown</label>
                 </div>
     
     
@@ -142,7 +175,7 @@ export default function Home() {
                 show={show} 
                 onHide={handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Login</Modal.Title>
+                    <Modal.Title>User Login</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}

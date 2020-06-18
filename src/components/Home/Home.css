@@ -62,3 +62,119 @@
 .wrongUserCred{
     color: red;
 }
+
+.Rel1{
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    left: 50px;
+    border-radius: 20px;
+}
+
+.Rel2{
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    left: 400px;
+    border-radius: 20px;
+}
+
+.Rel3{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    left: 750px;
+    border-radius: 20px;
+
+}
+
+.loginRedirect{
+    position: absolute;
+    width: 450px;
+    height: 150px;
+    left: 30%;
+    top: 450px;
+    border-radius: 35px;
+}
+
+.startText{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 90px;
+}
+
+.leftImage{
+    position: absolute;
+    width: 500px;
+    height: 410px;
+    left: 65px;
+    top: 700px;
+    border-radius: 30px;
+}
+
+.rightImage{
+    position: absolute;
+    width: 500px;
+    height: 400px;
+    left: 575px;
+    top: 700px;
+    border-radius: 30px;
+}
+
+.middleImage{
+    position: absolute;
+    width: 750px;
+    height: 589px;
+    left: 20%;
+    top: 1150px;
+    border-radius: 10px;
+}
+
+.SecondMiddleImage{
+    position: absolute;
+    width: 100%;
+    height: 546px;
+    top: 1850px;
+}
+
+.SecondLeftImage{
+    position: absolute;
+    width: 250px;
+    height: 200px;
+    left: 119px;
+    top: 2650px;
+}
+
+.SecondRightImage{
+    position: absolute;
+    width: 750px;
+    height: 494px;
+    left: 400px;
+    top: 2500px;
+    border-radius: 20px;
+}
+
+.FooterImage{
+    position: absolute;
+    width: 100%;
+    height: 130px;
+    top: 3100px;
+}
+
+.FooterText{
+    position: absolute;
+    width: 601px;
+    height: 50px;
+    left: 25%;
+    top: 3135px;
+}
+
+.Copyright{
+    position: absolute;
+    width: 100px;
+    height: 50px;
+    top: 525%;
+    left: 40%;
+}
