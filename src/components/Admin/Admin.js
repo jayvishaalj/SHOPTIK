@@ -6,7 +6,7 @@ import adminBack from '../../assets/covid.jpg'
 import DatePicker from "react-datepicker";
 import "./Admin.css"
 // import './Shop.css';
-import { Button, Modal, Form, Col, Container, Row, Spinner } from 'react-bootstrap';
+import { Button, Modal, Form} from 'react-bootstrap';
 // var DatePicker = require("react-bootstrap-date-picker");
 import "react-datepicker/dist/react-datepicker.css";
 
