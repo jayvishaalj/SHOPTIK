@@ -62,3 +62,9 @@
 .wrongUserCred{
     color: red;
 }
+
+
+.modal-title{
+    margin: 20px;
+    cursor: pointer;
+}

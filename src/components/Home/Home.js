@@ -1,25 +1,31 @@
-import React , {useState} from 'react';
+import React, { useState } from 'react';
 import Hero from '../../assets/Hero.png';
 import User from '../../assets/user.png';
 import Shop from '../../assets/shop.png';
 import './Home.css';
-import { Button, Modal, Form } from 'react-bootstrap';
+import { Button, Modal, Form, Navbar, Nav, FormControl, NavDropdown } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
 
 
 
 export default function Home() {
 
-    const [ userPageRedirect ,setUserPageRedirect ] = useState(false);
-    const [ shopPageRedirect ,setShopPageRedirect ] = useState(false);
-    const [ adminPageRedirect, setAdminPageRedirect ] = useState(false);
+    const [userPageRedirect, setUserPageRedirect] = useState(false);
+    const [shopPageRedirect, setShopPageRedirect] = useState(false);
+    const [adminPageRedirect, setAdminPageRedirect] = useState(false);
     const [show, setShow] = useState(false);
     const [showShop, setShowShop] = useState(false);
     const [showAdmin, setShowAdmin] = useState(false);
-    const [wrongCred,setWrongCred] = useState(false);
-    const [userId,setUserId] = useState(null);
-    const [shopId,setShopId] = useState(null);
+    const [wrongCred, setWrongCred] = useState(false);
+    const [userId, setUserId] = useState(null);
+    const [shopId, setShopId] = useState(null);
     const [adminId, setAdminId] = useState(null);
+    const [shopLoginModal, setShopLoginModal] = useState(true)
+    const [shopRegisterModal, setShopRegsisterModal] = useState(false)
+    const [userLoginModal, setUserLoginModal] = useState(true)
+    const [userRegisterModal, setUserRegisterModal] = useState(false)
+
+
     const BASE_URL = 'https://spider.nitt.edu/chainrunner';
 
     const handleClose = () => setShow(false);
@@ -29,6 +35,31 @@ export default function Home() {
     const handleCloseShop = () => setShowShop(false);
     const handleShowShop = () => setShowShop(true);
 
+    const handleShopLoginModalClick = () => {
+        setShopLoginModal(true)
+        setShopRegsisterModal(false)
+    }
+    const handleShopRegisterModalClick = () => {
+        setShopRegsisterModal(true)
+        setShopLoginModal(false)
+    }
+    const handleUserLoginModalClick = () => {
+        setUserLoginModal(true)
+        setUserRegisterModal(false)
+    }
+    const handleUserRegisterModalClick = () => {
+        setUserRegisterModal(true)
+        setUserLoginModal(false)
+    }
+
+    const userRegister = (e) => {
+        e.preventDefault()
+    }
+
+    const shopRegister = (e) => {
+        e.preventDefault()
+    }
+
     const userLogin = (e) => {
         e.preventDefault();
         console.log("USER LOGINED");
@@ -36,22 +67,22 @@ export default function Home() {
         const pwd = e.target.elements.formBasicPassword.value
         console.log(email, pwd);
         //login api for user must be called
-        let url = BASE_URL+'/api/user/login/'+email+'/'+pwd;
+        let url = BASE_URL + '/api/user/login/' + email + '/' + pwd;
         console.log(url);
         fetch(url)
-        .then(res => res.json())
-        .then(resJson => {
-            console.log(resJson);
-            if(resJson.success == true){
-                setWrongCred(false);
-                setUserId(resJson.id);
-                setUserPageRedirect(true);
-                
-            }
-            else{
-                setWrongCred(true);
-            }
-        });
+            .then(res => res.json())
+            .then(resJson => {
+                console.log(resJson);
+                if (resJson.success == true) {
+                    setWrongCred(false);
+                    setUserId(resJson.id);
+                    setUserPageRedirect(true);
+
+                }
+                else {
+                    setWrongCred(true);
+                }
+            });
     }
 
     const shopLogin = (e) => {
@@ -60,21 +91,21 @@ export default function Home() {
         const email = e.target.elements.formBasicEmail.value;
         const pwd = e.target.elements.formBasicPassword.value
         console.log(email, pwd);
-        let url = BASE_URL+'/api/shop/login/'+email+'/'+pwd;
+        let url = BASE_URL + '/api/shop/login/' + email + '/' + pwd;
         console.log(url);
         fetch(url)
-        .then(res => res.json())
-        .then(resJson => {
-            console.log(resJson);
-            if(resJson.success == true){
-                setWrongCred(false);
-                setShopId(resJson.id);
-                setShopPageRedirect(true);
-            }
-            else{
-                setWrongCred(true);
-            }
-        });
+            .then(res => res.json())
+            .then(resJson => {
+                console.log(resJson);
+                if (resJson.success == true) {
+                    setWrongCred(false);
+                    setShopId(resJson.id);
+                    setShopPageRedirect(true);
+                }
+                else {
+                    setWrongCred(true);
+                }
+            });
     }
 
     const adminLogin = (e) => {
@@ -83,178 +114,274 @@ export default function Home() {
         const email = e.target.elements.formBasicEmail.value;
         const pwd = e.target.elements.formBasicPassword.value
         console.log(email, pwd);
-        let url = BASE_URL+'/api/admin/login/'+email+'/'+pwd;
+        let url = BASE_URL + '/api/admin/login/' + email + '/' + pwd;
         console.log(url);
         fetch(url)
-        .then(res => res.json())
-        .then(resJson => {
-            console.log(resJson);
-            if(resJson.success == true){
-                setWrongCred(false);
-                setAdminId('0x83623E189eFF48247D8c303b1e95BC36560C41a2');
-                setAdminPageRedirect(true);
-            }
-            else{
-                setWrongCred(true);
-            }
-        });
+            .then(res => res.json())
+            .then(resJson => {
+                console.log(resJson);
+                if (resJson.success == true) {
+                    setWrongCred(false);
+                    setAdminId('0x83623E189eFF48247D8c303b1e95BC36560C41a2');
+                    setAdminPageRedirect(true);
+                }
+                else {
+                    setWrongCred(true);
+                }
+            });
     }
-    if(userPageRedirect){
-        let url = "/user/"+userId;
-        return <Redirect to={url}/>
-    }
-    else if(shopPageRedirect){
-        let url = "/shop/"+shopId;
+    if (userPageRedirect) {
+        let url = "/user/" + userId;
         return <Redirect to={url} />
     }
-    else if(adminPageRedirect){
-        let url = "/admin/"+adminId;
+    else if (shopPageRedirect) {
+        let url = "/shop/" + shopId;
         return <Redirect to={url} />
     }
-    else{
-        return(
+    else if (adminPageRedirect) {
+        let url = "/admin/" + adminId;
+        return <Redirect to={url} />
+    }
+    else {
+        return (
             <div>
                 <div>
                     <img alt="hero" className="hero" src={Hero} />
                     <div className="navbar">
                         <label className="title">SHOPTIK</label>
-                        <input className="searchbar" type="text" placeholder="search for shops"/>
-                        <img alt="hero" className="shopIcon" src={User} onClick={handleShow}/>
-                        <label className="signText" onClick={handleShow}>  Sign in or Register </label> 
+                        <input className="searchbar" type="text" placeholder="search for shops" />
+                        <img alt="hero" className="shopIcon" src={User} onClick={handleShow} />
+                        <label className="signText" onClick={handleShow}>  Sign in or Register </label>
                         <img className="shopIcon" onClick={handleShowShop} src={Shop} alt="hero" />
-                        <label className="signText" onClick={handleShowShop}> Shop Login</label> 
-                        <img alt="hero" className="shopIcon" src={User} onClick={handleAdminShow}/>
-                        <label className="signText" onClick={handleAdminShow}>  Admin </label> 
+                        <label className="signText" onClick={handleShowShop}> Shop Login</label>
+                        <img alt="hero" className="shopIcon" src={User} onClick={handleAdminShow} />
+                        <label className="signText" onClick={handleAdminShow}>  Admin </label>
                     </div>
                     <div className="mainblock">
                         <label className="mainSectionHeading">SHOPS THAT HAVE YOUR NEEDS READY</label>
-                        <br/>
-                        <br/>
-                        <br/>
+                        <br />
+                        <br />
+                        <br />
                     </div>
                 </div>
-    
-    
+
+
                 <Modal
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                show={show} 
-                onHide={handleClose}>
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    show={show}
+                    onHide={handleClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Login</Modal.Title>
+                        <Modal.Title>
+                            <span className='modal-title' style={userLoginModal ? { textDecoration: 'underline' } : {}} onClick={handleUserLoginModalClick}>User Login</span>
+                            <span className='modal-title' style={userRegisterModal ? { textDecoration: 'underline' } : {}} onClick={handleUserRegisterModalClick}>User Register</span>
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
-                        <Form onSubmit={userLogin}>
-                            <Form.Group  controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control  type="email" placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
+                        {userLoginModal && <div>
+                            {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
+                            <Form onSubmit={userLogin}>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Text className="text-muted">
+                                        We'll never share your email with anyone else.
                                 </Form.Text>
-                            </Form.Group>
-    
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
-                            </Form.Group>
-                            <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember me" />
-                            </Form.Group>
-                            <center>
-                                <Button variant="primary" type="submit">
-                                Login
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="Remember me" />
+                                </Form.Group>
+                                <center>
+                                    <Button variant="primary" type="submit">
+                                        Login
                                 </Button>
-                            </center>
-                        </Form>
+                                </center>
+                            </Form>
+                        </div>}
+                        {userRegisterModal && <div>
+                            <Form onSubmit={userRegister}>
+                                <Form.Group>
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter Name" />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Text className="text-muted">
+                                        We'll never share your email with anyone else.
+                                </Form.Text>
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                    <Form.Label>Address</Form.Label>
+                                    <Form.Control as="textarea" rows="3" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Phone</Form.Label>
+                                    <Form.Control type="number" placeholder="Enter Phone" />
+                                </Form.Group>
+                                <center>
+                                    <Button variant="primary" type="submit">
+                                        Register
+                                </Button>
+                                </center>
+                            </Form>
+                        </div>}
                     </Modal.Body>
                 </Modal>
-    
+
                 <Modal
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                show={showShop} 
-                onHide={handleCloseShop}>
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    show={showShop}
+                    onHide={handleCloseShop}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Shop Login</Modal.Title>
+                        <Modal.Title>
+                            <span className='modal-title' style={shopLoginModal ? { textDecoration: 'underline' } : {}} onClick={handleShopLoginModalClick}>Shop Login</span>
+                            <span className='modal-title' style={shopRegisterModal ? { textDecoration: 'underline' } : {}} onClick={handleShopRegisterModalClick}>Shop Register</span>
+                        </Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
-                        <Form onSubmit={shopLogin}>
-                            <Form.Group  controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control  type="email" placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
+                        {shopLoginModal && <div>
+                            {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
+                            <Form onSubmit={shopLogin}>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Text className="text-muted">
+                                        We'll never share your email with anyone else.
                                 </Form.Text>
-                            </Form.Group>
-    
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
-                            </Form.Group>
-                            <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember me" />
-                            </Form.Group>
-                            <center>
-                                <Button variant="primary" type="submit">
-                                Login
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="Remember me" />
+                                </Form.Group>
+                                <center>
+                                    <Button variant="primary" type="submit">
+                                        Login
                                 </Button>
-                            </center>
-                        </Form>
+                                </center>
+                            </Form>
+                        </div>}
+                        {shopRegisterModal && <div>
+                            <Form onSubmit={shopRegister}>
+                                <Form.Group>
+                                    <Form.Label>Name</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter Name" />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Text className="text-muted">
+                                        We'll never share your email with anyone else.
+                                </Form.Text>
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                    <Form.Label>Address</Form.Label>
+                                    <Form.Control as="textarea" rows="3" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Phone</Form.Label>
+                                    <Form.Control type="number" placeholder="Enter Phone" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.File id="exampleFormControlFile1" label="Image of shop" />
+                                </Form.Group>
+                                <Form.Group>
+                                    <Form.Label>Hold Limit</Form.Label>
+                                    <Form.Control type="number" placeholder="Enter hold limit" />
+                                    <Form.Text className="text-muted">
+                                        Hold limit is the hold limit
+                                </Form.Text>
+                                </Form.Group>
+
+
+
+                                <center>
+                                    <Button variant="primary" type="submit">
+                                        Register
+                                </Button>
+                                </center>
+                            </Form>
+                        </div>}
                     </Modal.Body>
                 </Modal>
 
 
                 <Modal
-                size="lg"
-                aria-labelledby="contained-modal-title-vcenter"
-                centered
-                show={showAdmin} 
-                onHide={handleAdminClose}>
+                    size="lg"
+                    aria-labelledby="contained-modal-title-vcenter"
+                    centered
+                    show={showAdmin}
+                    onHide={handleAdminClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Shop Login</Modal.Title>
+
+                        <Modal.Title>
+                            Admin Login
+                        </Modal.Title>
+
                     </Modal.Header>
                     <Modal.Body>
-                        {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
-                        <Form onSubmit={adminLogin}>
-                            <Form.Group  controlId="formBasicEmail">
-                                <Form.Label>Email address</Form.Label>
-                                <Form.Control  type="email" placeholder="Enter email" />
-                                <Form.Text className="text-muted">
-                                We'll never share your email with anyone else.
+                        <div>
+
+                            {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
+                            <Form onSubmit={adminLogin}>
+                                <Form.Group controlId="formBasicEmail">
+                                    <Form.Label>Email address</Form.Label>
+                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Text className="text-muted">
+                                        We'll never share your email with anyone else.
                                 </Form.Text>
-                            </Form.Group>
-    
-                            <Form.Group controlId="formBasicPassword">
-                                <Form.Label>Password</Form.Label>
-                                <Form.Control type="password" placeholder="Password" />
-                            </Form.Group>
-                            <Form.Group controlId="formBasicCheckbox">
-                                <Form.Check type="checkbox" label="Remember me" />
-                            </Form.Group>
-                            <center>
-                                <Button variant="primary" type="submit">
-                                Login
+                                </Form.Group>
+
+                                <Form.Group controlId="formBasicPassword">
+                                    <Form.Label>Password</Form.Label>
+                                    <Form.Control type="password" placeholder="Password" />
+                                </Form.Group>
+                                <Form.Group controlId="formBasicCheckbox">
+                                    <Form.Check type="checkbox" label="Remember me" />
+                                </Form.Group>
+                                <center>
+                                    <Button variant="primary" type="submit">
+                                        Login
                                 </Button>
-                            </center>
-                        </Form>
+                                </center>
+                            </Form>
+                        </div>
                     </Modal.Body>
                 </Modal>
-            </div>
+            </div >
 
         );
     }
-    
+
 }
 
 
 
 
-// var AddTicket = React.createClass({ 
-//     handleSubmitEvent: function (event) { 
+// var AddTicket = React.createClass({
+//     handleSubmitEvent: function (event) {
 //         event.preventDefault(); 
 //         console.log("Email--"+this.refs.email.value.trim()); 
 //         console.log("Issue Type--"+this.refs.issueType.value.trim()); 
