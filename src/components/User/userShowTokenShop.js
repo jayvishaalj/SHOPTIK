@@ -48,8 +48,20 @@ export default function ShopToken(){
                 console.log(days);
                 let apiUrl = BASE_URL+'/api/shop/tokens/booked/'+days[i]+'/'+id;
                 await axios.get(apiUrl).then(response => {
-                    let data = { day : days[i] , data : response.data};
-                    shopTokens.push(data);
+                    console.log(response.data);
+                    let acceptedSlots = [];
+                    for(let j=0;j<10;j++){
+                        let slot = days[i] +" "+response.data[j].slot+":00"
+                        console.log(slot);
+                        console.log(new Date(slot) > new Date());
+                        if(new Date(slot) > new Date()){
+                            acceptedSlots.push(response.data[j]);
+                        }
+                        if(j==9){
+                            let data = { day : days[i] , data : acceptedSlots};
+                            shopTokens.push(data);
+                        }
+                    }    
                 });
                 if(i===6)
                 {
@@ -62,6 +74,46 @@ export default function ShopToken(){
         });
     
     },[]);
+
+    const refreshData = () =>{
+        let apiCall = BASE_URL+'/api/shop/details/'+id;
+        fetch(apiCall)
+        .then(res => res.json())
+        .then(async response => {
+            setShopName(response.name);
+            setShopImage(response.image); 
+            setHoldLimit(response.hold_limit);
+            let shopTokens = [];
+            let i =0;
+            for(i=0;i<7;i++){
+                console.log(days);
+                let apiUrl = BASE_URL+'/api/shop/tokens/booked/'+days[i]+'/'+id;
+                await axios.get(apiUrl).then(response => {
+                    console.log(response.data);
+                    let acceptedSlots = [];
+                    for(let j=0;j<10;j++){
+                        let slot = days[i] +" "+response.data[j].slot+":00"
+                        console.log(slot);
+                        console.log(new Date(slot) > new Date());
+                        if(new Date(slot) > new Date()){
+                            acceptedSlots.push(response.data[j]);
+                        }
+                        if(j==9){
+                            let data = { day : days[i] , data : acceptedSlots};
+                            shopTokens.push(data);
+                        }
+                    }    
+                });
+                if(i===6)
+                {
+                    await setShopTokensBooked(shopTokens);
+                    setIsLoading(false);
+                    console.log("ShpoTokensBooked",shopTokensBooked);
+                }
+            }           
+
+        });
+    }
 
 
     const handleLogout = () =>{
@@ -79,6 +131,7 @@ export default function ShopToken(){
 
     const handleConfirmBookToken = () => {
         let apiUrl = BASE_URL + '/api/book/token';
+        console.log(userId,id,selectedDay+ " " +selectedSlot+":00");
         setBookingTicket(true);
         axios.post(apiUrl,{
             "custId":userId,
@@ -90,6 +143,7 @@ export default function ShopToken(){
             if(response.data !== null){
                 if(response.data.success == true){
                     alert("TOKEN BOOKED SUCCESSFULLY");
+                    refreshData();
                 }
                 else{
                     alert("TOKEN NOT BOOKED");
@@ -101,6 +155,9 @@ export default function ShopToken(){
             handleClose();
             
         })
+        .catch(e => {
+            console.log(e);
+        });
         
     }
 

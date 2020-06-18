@@ -5,6 +5,7 @@ import Shop from '../../assets/shop.png';
 import './Home.css';
 import { Button, Modal, Form, Navbar, Nav, FormControl, NavDropdown } from 'react-bootstrap';
 import { Redirect } from "react-router-dom";
+import axios from 'axios';
 import img1 from '../../assets/leftimage.png';
 import img2 from '../../assets/rightimage.png';
 import img3 from '../../assets/MarketCard.png';
@@ -65,18 +66,75 @@ export default function Home() {
     }
 
     const userRegister = (e) => {
-        e.preventDefault()
+        e.preventDefault();
+        const email = e.target.elements.formBasicEmail.value;
+        const pwd = e.target.elements.formBasicPassword.value
+        const name = e.target.elements.formBasicName.value;
+        const address = e.target.elements.formControlTextarea1.value;
+        const phone = e.target.elements.formBaiscPhone.value;
+        let apiUrl = BASE_URL+'/api/user/register';
+        axios.post(apiUrl,{
+            "name" : name,
+            "email" : email,
+            "address":address,
+            "phone" :phone,
+            "pwd" : pwd
+        }).then(response => {
+            if(response.data.success === true){
+                alert("Successfully Registered!");
+                handleClose();
+                setUserRegisterModal(false);
+            }
+            else
+            {
+                alert("Sorry, Not Registered! Try Again");
+                handleClose();
+                setUserRegisterModal(false);
+            }
+        })
     }
 
     const shopRegister = (e) => {
         e.preventDefault()
+        const email = e.target.elements.formBasicEmail.value;
+        const pwd = e.target.elements.formBasicPassword.value
+        const name = e.target.elements.formBasicName.value;
+        const address = e.target.elements.formControlTextarea1.value;
+        const phone = e.target.elements.formBaiscPhone.value;
+        const image = e.target.elements.formBasicImage.value;
+        const holdLimit = e.target.elements.formBasicHoldLimit.value;
+        console.log(image);
+        let apiUrl = BASE_URL+'/api/shop/register';
+        axios.post(apiUrl,{
+            "name" : name,
+            "lat": 20.09,
+            "lon" :78.098,
+            "email" : email,
+            "address":address,
+            "phone" :phone,
+            "pwd" : pwd,
+            "hold": holdLimit,
+            "image_url" : image
+        }).then(response => {
+            if(response.data.success === true){
+                alert("Successfully Registered!");
+                handleCloseShop();
+                setShopRegsisterModal(false);
+            }
+            else
+            {
+                alert("Sorry, Not Registered! Try Again");
+                handleCloseShop();
+                setShopRegsisterModal(false);
+            }
+        })
     }
 
     const userLogin = (e) => {
         e.preventDefault();
         console.log("USER LOGINED");
         const email = e.target.elements.formBasicEmail.value;
-        const pwd = e.target.elements.formBasicPassword.value
+        const pwd = e.target.elements.formBasicPassword.value;
         console.log(email, pwd);
         //login api for user must be called
         let url = BASE_URL + '/api/user/login/' + email + '/' + pwd;
@@ -210,7 +268,6 @@ export default function Home() {
                             <span className='modal-title' style={userLoginModal ? { textDecoration: 'underline' } : {}} onClick={handleUserLoginModalClick}>User Login</span>
                             <span className='modal-title' style={userRegisterModal ? { textDecoration: 'underline' } : {}} onClick={handleUserRegisterModalClick}>User Register</span>
                         </Modal.Title>
-                    <Modal.Title>User Login</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {userLoginModal && <div>
@@ -240,7 +297,7 @@ export default function Home() {
                         </div>}
                         {userRegisterModal && <div>
                             <Form onSubmit={userRegister}>
-                                <Form.Group>
+                                <Form.Group controlId="formBasicName">
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control type="text" placeholder="Enter Name" />
                                 </Form.Group>
@@ -256,11 +313,11 @@ export default function Home() {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
-                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                <Form.Group controlId="formControlTextarea1">
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control as="textarea" rows="3" />
                                 </Form.Group>
-                                <Form.Group>
+                                <Form.Group controlId="formBaiscPhone">
                                     <Form.Label>Phone</Form.Label>
                                     <Form.Control type="number" placeholder="Enter Phone" />
                                 </Form.Group>
@@ -314,7 +371,7 @@ export default function Home() {
                         </div>}
                         {shopRegisterModal && <div>
                             <Form onSubmit={shopRegister}>
-                                <Form.Group>
+                                <Form.Group controlId="formBasicName">
                                     <Form.Label>Name</Form.Label>
                                     <Form.Control type="text" placeholder="Enter Name" />
                                 </Form.Group>
@@ -330,18 +387,19 @@ export default function Home() {
                                     <Form.Label>Password</Form.Label>
                                     <Form.Control type="password" placeholder="Password" />
                                 </Form.Group>
-                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                <Form.Group controlId="formControlTextarea1">
                                     <Form.Label>Address</Form.Label>
                                     <Form.Control as="textarea" rows="3" />
                                 </Form.Group>
-                                <Form.Group>
+                                <Form.Group controlId="formBaiscPhone">
                                     <Form.Label>Phone</Form.Label>
                                     <Form.Control type="number" placeholder="Enter Phone" />
                                 </Form.Group>
-                                <Form.Group>
-                                    <Form.File id="exampleFormControlFile1" label="Image of shop" />
+                                <Form.Group controlId="formBasicImage">
+                                    <Form.Label>Image</Form.Label>
+                                    <Form.Control type="text" placeholder="Enter Url" />
                                 </Form.Group>
-                                <Form.Group>
+                                <Form.Group controlId="formBasicHoldLimit">
                                     <Form.Label>Hold Limit</Form.Label>
                                     <Form.Control type="number" placeholder="Enter hold limit" />
                                     <Form.Text className="text-muted">
