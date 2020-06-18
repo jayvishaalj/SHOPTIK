@@ -163,4 +163,5 @@ font-size: large;
 .autocomplete-text{
     width: 100%;
     display: inline-block;
+    padding: 5px;
 }

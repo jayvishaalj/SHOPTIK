@@ -14,13 +14,13 @@ import { Button, Modal, Form, Col, Container, Row, Spinner, Table } from 'react-
 // var DatePicker = require("react-bootstrap-date-picker");
 import "react-datepicker/dist/react-datepicker.css";
 
-function CustomTable({ id, data }) {
+function CustomTable({ id, data, name }) {
     // console.log(id, data)
     return (
         <div className='table-container'>
             <div>
                 <div>
-                    <span className='customer-title'>{id}</span>
+                    <span className='customer-title'>{name}</span>
 
 
                     <Button className='bottom-buttons-item danger track-display-button'> Mark as Carrier</Button>
@@ -80,13 +80,21 @@ export default function Admin() {
         let return_array = []
         fetch(apiUrl).then(res => res.json()).then(resJson => {
             // console.log("this is resjson", resJson)
-            setCustNames(resJson)
-            // let return_array = []
-            resJson.forEach(ele => {
-                return_array.push(ele.name + "  (" + ele.email + ")")
-            })
-            // console.log("this is return array", return_array)
-            setCustTempNames(return_array)
+            if(resJson.success){
+
+                setCustNames(resJson.data)
+                // console.log("this is resjson::: ", resJson)
+                // let return_array = []
+                resJson.data.forEach(ele => {
+                    return_array.push(ele.name + "  (" + ele.email + ")")
+                })
+                // console.log("this is return array", return_array)
+                setCustTempNames(return_array)
+            }
+            else{
+                setCustNames([])
+                setCustTempNames([])
+            }
 
         })
 
@@ -137,7 +145,8 @@ export default function Admin() {
                 handleClose()
                 setTrackResponseData({
                     "id": cust_id[0].id,
-                    "data": response.data
+                    "data": response.data,
+                    "name": cust_id[0].name
                 })
             }
             else {
