@@ -165,7 +165,6 @@ export default function Home() {
                             <img src = {img8} alt="img8" className="FooterText" />
                             
                     </div>
-                    <label className="Copyright">copyright@BlockedDown</label>
                 </div>
     
     
