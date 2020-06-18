@@ -15,6 +15,7 @@ export default function User() {
         const [isLoading, setIsLoading] = useState(true);
         const[userShopTokenRedirect, setUserShopTokenRedirect] = useState(false);
         const [selectedShopId, setSelectedShopId] = useState('');
+        const [bookingHistoryRedirect, setBookingHistoryRedirect] = useState(false);
 
         useEffect(() =>{
             let apiUrl = BASE_URL + '/api/shop/nearme';
@@ -37,13 +38,22 @@ export default function User() {
             setSelectedShopId(shopId);
             setUserShopTokenRedirect(true);
         }
+
+        const handleBookingHistoryRedirect = () =>{
+            setBookingHistoryRedirect(true);
+        }
         if(userLogoutRedirect){
             let url = "/"
             return <Redirect to={url}/>
         }
         else if(userShopTokenRedirect)
         {  
-            let url = "/user/shop/"+selectedShopId;
+            let url = "/user/shop/"+selectedShopId+"/"+id;
+            return <Redirect to={url}/>
+        }
+        else if(bookingHistoryRedirect)
+        {  
+            let url = "/user/booked-tokens/"+id;
             return <Redirect to={url}/>
         }
         else
@@ -65,6 +75,7 @@ export default function User() {
                             <div className="UserNavbar">
                                 <label className="title">SHOPTIK</label>
                                 <div>
+                                <label className="logoutText" onClick={handleBookingHistoryRedirect} >Booking History</label>
                                 <img className="shopIcon" onClick={handleLogout} src={UserLogo} alt="icon"/>
                                 <label className="logoutText" onClick={handleLogout} >Logout</label>
                                 </div>                

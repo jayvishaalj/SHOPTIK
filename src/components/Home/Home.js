@@ -42,7 +42,7 @@ export default function Home() {
         .then(res => res.json())
         .then(resJson => {
             console.log(resJson);
-            if(resJson.success == true){
+            if(resJson.success === true){
                 setWrongCred(false);
                 setUserId(resJson.id);
                 setUserPageRedirect(true);
@@ -66,7 +66,7 @@ export default function Home() {
         .then(res => res.json())
         .then(resJson => {
             console.log(resJson);
-            if(resJson.success == true){
+            if(resJson.success === true){
                 setWrongCred(false);
                 setShopId(resJson.id);
                 setShopPageRedirect(true);
@@ -89,7 +89,7 @@ export default function Home() {
         .then(res => res.json())
         .then(resJson => {
             console.log(resJson);
-            if(resJson.success == true){
+            if(resJson.success === true){
                 setWrongCred(false);
                 setAdminId('0x83623E189eFF48247D8c303b1e95BC36560C41a2');
                 setAdminPageRedirect(true);
@@ -215,7 +215,7 @@ export default function Home() {
                 show={showAdmin} 
                 onHide={handleAdminClose}>
                     <Modal.Header closeButton>
-                    <Modal.Title>Shop Login</Modal.Title>
+                    <Modal.Title>Admin Login</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {wrongCred && <label className="wrongUserCred">Wrong Username or Password</label>}
