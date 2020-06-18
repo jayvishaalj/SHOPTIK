@@ -54,8 +54,7 @@
     font-family: 'Montserrat', sans-serif;
     font-size: 25px;
     text-align: center;
-    align-self: center;
-    margin-left: 20%;
+    margin-left: 30%;
     letter-spacing: 5px;
 }
 
@@ -63,8 +62,114 @@
     color: red;
 }
 
-
 .modal-title{
     margin: 20px;
     cursor: pointer;
+}
+.Rel1{
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    left: 250px;
+    border-radius: 20px;
+}
+
+.Rel2{
+    position: absolute;
+    width: 300px;
+    height: 250px;
+    left: 600px;
+    border-radius: 20px;
+}
+
+.Rel3{
+    position: absolute;
+    width: 250px;
+    height: 250px;
+    left: 950px;
+    border-radius: 20px;
+
+}
+
+.loginRedirect{
+    position: absolute;
+    width: 450px;
+    height: 150px;
+    left: 35%;
+    top: 450px;
+    border-radius: 35px;
+}
+
+.startText{
+    font-family: Montserrat;
+    font-style: normal;
+    font-weight: 600;
+    font-size: 20px;
+    line-height: 90px;
+}
+
+.leftImage{
+    position: absolute;
+    width: 500px;
+    height: 410px;
+    left: 150px;
+    top: 700px;
+    border-radius: 30px;
+}
+
+.rightImage{
+    position: absolute;
+    width: 500px;
+    height: 400px;
+    left: 700px;
+    top: 700px;
+    border-radius: 30px;
+}
+
+.middleImage{
+    position: absolute;
+    width: 750px;
+    height: 589px;
+    left: 25%;
+    top: 1150px;
+    border-radius: 10px;
+}
+
+.SecondMiddleImage{
+    position: absolute;
+    width: 100%;
+    height: 546px;
+    top: 1850px;
+}
+
+.SecondLeftImage{
+    position: absolute;
+    width: 300px;
+    height: 200px;
+    left: 150px;
+    top: 2650px;
+}
+
+.SecondRightImage{
+    position: absolute;
+    width: 750px;
+    height: 494px;
+    left: 620px;
+    top: 2500px;
+    border-radius: 20px;
+}
+
+.FooterImage{
+    position: absolute;
+    width: 100%;
+    height: 130px;
+    top: 3100px;
+}
+
+.FooterText{
+    position: absolute;
+    width: 601px;
+    height: 40px;
+    left: 30%;
+    top: 3135px;
 }
