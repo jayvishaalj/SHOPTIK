@@ -140,16 +140,16 @@ export default function Shop() {
                     </div>
                     <div>
                         <label className="addItemText">ADD ITEM</label>
-                        <Form onSubmit={handleAddItem} className="productForm"> 
+                        <Form id="addProductForm" onSubmit={handleAddItem} className="productForm"> 
                             <Form.Row className="addProduct">
                                 <Col xs={2}>
                                 <Form.Group controlId="productId">
-                                    <Form.Control placeholder="Product ID" />
+                                    <Form.Control defaultValue="" placeholder="Product ID" />
                                 </Form.Group>
                                 </Col>
                                 <Col>
                                 <Form.Group controlId="productName">
-                                    <Form.Control placeholder="Product Name" />
+                                    <Form.Control defaultValue="" placeholder="Product Name" />
                                 </Form.Group>
                                 </Col>
                                 <Col xs={1}>
