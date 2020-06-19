@@ -144,12 +144,12 @@ export default function Shop() {
                             <Form.Row className="addProduct">
                                 <Col xs={2}>
                                 <Form.Group controlId="productId">
-                                    <Form.Control defaultValue="" placeholder="Product ID" />
+                                    <Form.Control required={true} defaultValue="" placeholder="Product ID" />
                                 </Form.Group>
                                 </Col>
                                 <Col>
                                 <Form.Group controlId="productName">
-                                    <Form.Control defaultValue="" placeholder="Product Name" />
+                                    <Form.Control  required={true} defaultValue="" placeholder="Product Name" />
                                 </Form.Group>
                                 </Col>
                                 <Col xs={1}>

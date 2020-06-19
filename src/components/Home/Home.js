@@ -275,7 +275,7 @@ export default function Home() {
                             <Form onSubmit={userLogin}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Control  required={true} type="email" placeholder="Enter email" />
                                     <Form.Text className="text-muted">
                                         We'll never share your email with anyone else.
                                 </Form.Text>
@@ -283,7 +283,7 @@ export default function Home() {
 
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control required={true} type="password" placeholder="Password" />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Remember me" />
@@ -299,11 +299,11 @@ export default function Home() {
                             <Form onSubmit={userRegister}>
                                 <Form.Group controlId="formBasicName">
                                     <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter Name" />
+                                    <Form.Control required={true} type="text" placeholder="Enter Name" />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Control required={true} type="email" placeholder="Enter email" />
                                     <Form.Text className="text-muted">
                                         We'll never share your email with anyone else.
                                 </Form.Text>
@@ -311,15 +311,15 @@ export default function Home() {
 
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control  required={true} type="password" placeholder="Password" />
                                 </Form.Group>
                                 <Form.Group controlId="formControlTextarea1">
                                     <Form.Label>Address</Form.Label>
-                                    <Form.Control as="textarea" rows="3" />
+                                    <Form.Control  required={true} as="textarea" rows="3" />
                                 </Form.Group>
                                 <Form.Group controlId="formBaiscPhone">
                                     <Form.Label>Phone</Form.Label>
-                                    <Form.Control type="number" placeholder="Enter Phone" />
+                                    <Form.Control required={true} type="number" placeholder="Enter Phone" />
                                 </Form.Group>
                                 <center>
                                     <Button variant="primary" type="submit">
@@ -349,7 +349,7 @@ export default function Home() {
                             <Form onSubmit={shopLogin}>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Control required={true} type="email" placeholder="Enter email" />
                                     <Form.Text className="text-muted">
                                         We'll never share your email with anyone else.
                                 </Form.Text>
@@ -357,7 +357,7 @@ export default function Home() {
 
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control required={true} type="password" placeholder="Password" />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicCheckbox">
                                     <Form.Check type="checkbox" label="Remember me" />
@@ -377,7 +377,7 @@ export default function Home() {
                                 </Form.Group>
                                 <Form.Group controlId="formBasicEmail">
                                     <Form.Label>Email address</Form.Label>
-                                    <Form.Control type="email" placeholder="Enter email" />
+                                    <Form.Control required={true} type="email" placeholder="Enter email" />
                                     <Form.Text className="text-muted">
                                         We'll never share your email with anyone else.
                                 </Form.Text>
@@ -385,23 +385,23 @@ export default function Home() {
 
                                 <Form.Group controlId="formBasicPassword">
                                     <Form.Label>Password</Form.Label>
-                                    <Form.Control type="password" placeholder="Password" />
+                                    <Form.Control required={true} type="password" placeholder="Password" />
                                 </Form.Group>
                                 <Form.Group controlId="formControlTextarea1">
                                     <Form.Label>Address</Form.Label>
-                                    <Form.Control as="textarea" rows="3" />
+                                    <Form.Control required={true} as="textarea" rows="3" />
                                 </Form.Group>
                                 <Form.Group controlId="formBaiscPhone">
                                     <Form.Label>Phone</Form.Label>
-                                    <Form.Control type="number" placeholder="Enter Phone" />
+                                    <Form.Control required={true} type="number" placeholder="Enter Phone" />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicImage">
                                     <Form.Label>Image</Form.Label>
-                                    <Form.Control type="text" placeholder="Enter Url" />
+                                    <Form.Control required={true} type="text" placeholder="Enter Url" />
                                 </Form.Group>
                                 <Form.Group controlId="formBasicHoldLimit">
                                     <Form.Label>Hold Limit</Form.Label>
-                                    <Form.Control type="number" placeholder="Enter hold limit" />
+                                    <Form.Control required={true} type="number" placeholder="Enter hold limit" />
                                     <Form.Text className="text-muted">
                                         Hold limit is the hold limit
                                 </Form.Text>
