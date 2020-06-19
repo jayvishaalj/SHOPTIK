@@ -104,10 +104,10 @@ export default function User() {
                                                 <p className="itemInShopText">ITEMS IN THIS SHOP</p>
                                                 <ul className="itemList">
 
-                                                    <li className="itemText">{shop.products[0][0]}</li>
-                                                    <li className="itemText">{shop.products[1][0]}</li>
-                                                    <li className="itemText">{shop.products[2][0]}</li>
-                                                    <li className="itemText">{shop.products[3][0]}</li>
+                                                    {shop.products[0] && (<li className="itemText">{shop.products[0][0]}</li>)}
+                                                    {shop.products[1] && (<li className="itemText">{shop.products[1][0]}</li>)}
+                                                    {shop.products[2] && (<li className="itemText">{shop.products[2][0]}</li>)}
+                                                    {shop.products[3] && (<li className="itemText">{shop.products[3][0]}</li>)}
                                                 </ul> 
                                                 <Button className="toggleButton" variant="primary" onClick={() => handleBookTicket(shop.shop.id)}>Book Token</Button>
                                                 <Accordion.Toggle as={Button}  className="toggleButton" variant="button" eventKey="1">

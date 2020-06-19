@@ -26,12 +26,12 @@ export default function ShopToken(){
     var days = [];
     var someDate = new Date();
     for(let i=1;i<=7;i++){
-        someDate.setDate(someDate.getDate() + 1);
         var dd = someDate.getDate();
         var mm = someDate.getMonth() + 1;
         var y = someDate.getFullYear();
         var someFormattedDate = y +'-'+mm+'-'+ dd ;
         days.push(someFormattedDate);
+        someDate.setDate(someDate.getDate() + 1);
     }
 
     useEffect(() =>{
@@ -156,7 +156,11 @@ export default function ShopToken(){
             
         })
         .catch(e => {
-            console.log(e);
+            console.log(e.response.status);
+            setBookingTicket(false);
+            alert("TOKEN ALREADY BOOKED");
+            handleClose();
+            
         });
         
     }
