@@ -36,9 +36,8 @@ export default function App() {
             <Route path="/shop/:id">
                <About />
             </Route>
-            <Route path="/admin/:id">
-               <Admin />
-            </Route>
+            <Route path='/admin/:id' render={(props) => <Admin {...props}/>}/>
+              
             <Route path="/">
                 <Home />
             </Route>
