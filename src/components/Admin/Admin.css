@@ -73,10 +73,13 @@ word-wrap: break-word;
 
 .sideNav{
     margin-right: 2%;
+    z-index: 20;
+    position: relative;
 }
 
 .mainbg{
     z-index:2;
+    width: 100%;
  /* position: relative; */
 }
 
@@ -89,15 +92,18 @@ word-wrap: break-word;
 }
 
 .UserNavbar{
+    position: relative;
+    z-index: 20;
     /* position: sticky;
     top: 0; */
 }
 
 .bottom-buttons{
     position: absolute;
-    bottom: 20px;
+    top: 10%;    
     display: block;
     width: 100%;
+    z-index: 20;
    
 }
 
@@ -112,7 +118,7 @@ word-wrap: break-word;
     /* font-family: 'Montserrat', sans-serif; */
     /* border: 2px solid black; */
     /* border-radius: 20px; */
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
 }
 
 .danger{
@@ -148,7 +154,9 @@ font-size: large;
     padding: 50px;
     /* width: 60%; */
     box-shadow: 0 20px 50px rgba(194, 194, 196, 0.952);
-    background-color:#fff
+    background-color:#fff;
+    margin-right: 30px;
+    margin-left: 30px;
 }
 
 .track-display-button{
@@ -164,4 +172,10 @@ font-size: large;
     width: 100%;
     display: inline-block;
     padding: 5px;
+}
+
+.track-display-span{
+float: right;
+margin-top: 10px;
+color: red;
 }
