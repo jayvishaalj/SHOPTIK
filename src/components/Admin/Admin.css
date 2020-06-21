@@ -4,12 +4,14 @@
     width: 100%;
     z-index: -1;
 }
-.title{
+.titleAdmin{
     font-family: 'Montserrat', sans-serif;
     font-size: 30px;
     margin-left: 4%;
+    margin-top: -5%;
     align-self: center;
 }
+
 
 .navbar{
     margin-top: -62%;
@@ -178,4 +180,20 @@ font-size: large;
 float: right;
 margin-top: 10px;
 color: red;
+}
+
+.logoutTextAdmin{
+    font-family: 'Montserrat', sans-serif;
+    margin-left: 5px;
+    margin-right: 20px;
+    margin-top: 25px;
+    z-index: 10;
+    display: block;
+}
+
+.logoutButton{
+    max-width: 150px;
+    max-height: 50px;
+    margin-left: 60%;
+    margin-top: 5%;
 }

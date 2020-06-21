@@ -147,7 +147,6 @@ export default function Home() {
                 setWrongCred(false);
                 setUserId(resJson.id);
                 setUserPageRedirect(true);
-                
             }
             else{
                 setWrongCred(true);

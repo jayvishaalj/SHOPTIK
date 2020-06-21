@@ -1,14 +1,13 @@
-import React, { useState, useEffect, Component } from 'react';
-import { useParams, Redirect } from 'react-router-dom';
+import React, {  Component } from 'react';
+import { Redirect } from 'react-router-dom';
 import Hero from '../../assets/header_new.png';
 import ShopLogo from '../../assets/shop.png';
-import adminBack from '../../assets/covid.jpg'
 import DatePicker from "react-datepicker";
 import "./Admin.css"
 import axios from 'axios';
 import TextInput from 'react-autocomplete-input';
 import 'react-autocomplete-input/dist/bundle.css';
-import { Button, Modal, Form, Col, Container, Row, Spinner, Table } from 'react-bootstrap'
+import { Button, Modal, Form, Spinner, Table } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
 
 // import React, {Component} from 'react'
@@ -250,7 +249,7 @@ export default class Admin extends Component {
     }
 
     handleLogout = () => {
-        // console.log("handle logout called")
+        console.log("handle logout called")
         this.setState({ logoutRedirect: true })
 
     }
@@ -261,8 +260,15 @@ export default class Admin extends Component {
 
     showContactTable = () => {
         let track = Object.assign({}, this.state.track)
-        track.contactTable = true
-        this.setState({track})
+        track.contactTable = true;
+        let showTableClone = this.state.carrier;
+        showTableClone.showTable = false;
+        this.setState({
+            track,
+            carrier:showTableClone
+            
+        })
+        
     }
 
     fetchCarrierNamesWithSideEffects = async (next) => {
@@ -423,10 +429,11 @@ export default class Admin extends Component {
             <div className='admin-bg'>
                 <img alt="hero" className="hero" src={Hero} />
                 <div className="UserNavbar">
-                    <label className="title">SHOPTIK</label>
+                    <label className="titleAdmin">SHOPTIK</label>
+                    <Button className="logoutButton" variant="danger" onClick={this.handleLogout}>Logout</Button>
                     <div className='d-inline sideNav'>
-                        <img className="shopIcon" onClick={this.handleLogout} src={ShopLogo} alt="icon" />
-                        <label className="logoutText" onClick={this.handleLogout} >Logout</label>
+                        {/* <img className="shopIcon" onClick={this.handleLogout} src={ShopLogo} alt="icon" />
+                        <label className="logoutTextAdmin" onClick={this.handleLogout} >Logout</label> */}
                         <div className='welcomeInfo'>
                             <span>Welcome, {this.state.admin.name}  </span>
                             <br />
