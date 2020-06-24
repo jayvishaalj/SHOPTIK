@@ -91,6 +91,7 @@ word-wrap: break-word;
     background-size: cover;
     z-index: -1;
     height: 100vh;
+    /* overflow: scroll; */
 }
 
 .UserNavbar{
@@ -148,6 +149,7 @@ font-size: large;
     /* background-color: rgb(195, 248, 239); */
     /* margin: 20px; */
     position: relative;
+    padding: 20px;
     display: flex;
 }
 
@@ -159,7 +161,9 @@ font-size: large;
     background-color:#fff;
     margin-right: 30px;
     margin-left: 30px;
+   
 }
+
 
 .track-display-button{
     float: right;
@@ -196,4 +200,19 @@ color: red;
     max-height: 50px;
     margin-left: 60%;
     margin-top: 5%;
+}
+
+
+table  { border-collapse: collapse; width: 100%; min-height: 500px;}
+th, td { padding: 8px 16px; }
+th     { background:#eee; }
+.tableFixHead { 
+    overflow-y: auto; 
+    max-height: 50vh;
+    min-height: 150px;
+ }
+.tableFixHead thead th { position: sticky; top: 0; }
+
+.main-container{
+    padding: 20px;
 }

@@ -1,4 +1,4 @@
-import React, {  Component } from 'react';
+import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom';
 import Hero from '../../assets/header_new.png';
 import ShopLogo from '../../assets/shop.png';
@@ -11,56 +11,59 @@ import { Button, Modal, Form, Spinner, Table } from 'react-bootstrap'
 import "react-datepicker/dist/react-datepicker.css";
 
 // import React, {Component} from 'react'
-// const LOCAL_URL = 'http://localhost:5000'
-const BASE_URL = 'https://spider.nitt.edu/chainrunner';
-// const BASE_URL = LOCAL_URL
+const LOCAL_URL = 'http://localhost:5000'
+// const BASE_URL = 'https://spider.nitt.edu/chainrunner';
+const BASE_URL = LOCAL_URL
 // import './Shop.css';
 
 
 function TrackCustomersTable(props) {
-    let global_cust_without_id = props.track.responseData.global_cust.filter(ele=>{
+    let global_cust_without_id = props.track.responseData.global_cust.filter(ele => {
         // console.log(props.track.responseData)
         // console.log(ele.id, props.track.responseData.data.id)
         let t = ele.slot.split(/[- :]/);
 
-// Apply each element to the Date function
-        var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
+        // Apply each element to the Date function
+        var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
         return ele.id !== props.track.responseData.id && d.getTime() >= props.track.dateFrom.getTime()
     })
     return (
         <div className='table-container'>
-            <div>
-    <span className='customer-title'>List of customers in contact with {props.track.responseData.name} from {props.track.dateFrom.toISOString().slice(0, 19).replace('T', ' ').slice(0, 10)}</span>
+            <div className='table-container-header'>
+                <span className='customer-title'>List of customers in contact with {props.track.responseData.name} from {props.track.dateFrom.toISOString().slice(0, 19).replace('T', ' ').slice(0, 10)}</span>
 
             </div>
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Address</th>
-                        <th>Shop Name</th>
-                        <th>Slot</th>
-                        <th>Phone number</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {global_cust_without_id.map((ele, index) => {
-                        return (
-                            <tr>
-                                <td>{index+1}</td>
-                                <td>{ele.name}</td>
-                                <td>{ele.address}</td>
-                                <td>{ele.shop_id}</td>
-                                <td>{ele.slot}</td>
-                                <td>{ele.phone}</td>
-                            </tr>
+            <div className='tableFixHead'>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Address</th>
+                            <th>Shop Name</th>
+                            <th>Slot</th>
+                            <th>Phone number</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {global_cust_without_id.length === 0 ?
+                            <tr><td colSpan={6}>No records found</td></tr> :
+                            global_cust_without_id.map((ele, index) => {
+                                return (
+                                    <tr key={index + 1}>
+                                        <td>{index + 1}</td>
+                                        <td>{ele.name}</td>
+                                        <td>{ele.address}</td>
+                                        <td>{ele.shop_id}</td>
+                                        <td>{ele.slot}</td>
+                                        <td>{ele.phone}</td>
+                                    </tr>
 
-                        )
-                    })}
-                    {global_cust_without_id.length === 0 ? <tr><td colSpan={6}>No records found</td></tr> : <span />}
-                </tbody>
-            </Table>
+                                )
+                            })}
+                    </tbody>
+                </Table>
+            </div>
         </div>
     )
 
@@ -68,62 +71,68 @@ function TrackCustomersTable(props) {
 }
 
 function CustomTable(props) {
-    
+
     // console.log("this is props track", props.track)
     // console.log("rendererer")
-    let cfrd = props.carrier.responseData.filter(ele => {      
-        return ele.id === props.track.responseData.id 
+    let cfrd = props.carrier.responseData.filter(ele => {
+        return ele.id === props.track.responseData.id
     })
-
-    let trackRData = props.track.responseData.data.filter(ele=>{
+    console.log("props.log.responesData: ", props.track.responseData.data)
+    let trackRData = props.track.responseData.data.filter(ele => {
         var t = ele.slot_begin.split(/[- :]/);
-        var d = new Date(Date.UTC(t[0], t[1]-1, t[2], t[3], t[4], t[5]));
-        return d.getTime() >= props.track.dateFrom.getTime()
+        var dat = props.track.dateFrom
+        dat.setHours(0, 0, 0, 0);
+        var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
+        // console.log(props.track.dateFrom.getTime(), d.getTime())
+        return d.getTime() >= dat.getTime()
     })
+    console.log('track R data: ', trackRData)
     // console.log(props.carrier.responseData)
     // console.log("this is cfrd:::: ", cfrd)
     return (
         <div className='table-container'>
-            <div>
+            <div className='table-container-header'>
+                {cfrd.length != 0 ?
+                    <span style={{ marginTop: "15px" }} className="track-display-span">Carrier</span> :
+                    <span><Button onClick={props.handleMarkAsCarrier} variant='danger' className='bottom-buttons-item track-display-button'>
+                        {props.carrier.loading && <Spinner animation="border" variant='danger' /> || 'Mark as carrier'}
+                    </Button></span>
+                }
+                <span><Button variant="warning" onClick={props.showContactTable} className="bottom-buttons-item track-display-button">
+                    Possible contacts
+                    </Button></span>
                 <div>
-                    <Button variant="primary" onClick = {props.showContactTable} className="bottom-buttons-item track-display-button">
-                        Possible contacts
-                    </Button>
-                    <span className='customer-title'>{props.track.responseData.name}</span>
 
-                    {cfrd.length != 0 ?
-                        <span className="track-display-span">Carrier</span> :
-                        <Button onClick={props.handleMarkAsCarrier} variant='danger' className='bottom-buttons-item track-display-button'>
-                            {props.carrier.loading && <Spinner animation="border" variant='danger' /> || 'Mark as carrier'}
-                        </Button>
-                    }
+                    <div className='customer-title'>{props.track.responseData.name}</div>
+
+
 
 
                 </div>
             </div>
+            <div className='tableFixHead'>
+                <Table striped bordered hover>
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Shop Name</th>
+                            <th>Time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
 
-            <Table striped bordered hover>
-                <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Shop Name</th>
-                        <th>Time</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {trackRData.map((ele, index) => {
-                        
-                        return (
-                            <tr>
-                                <td>{index + 1}</td>
-                                <td>{ele.shop_id}</td>
-                                <td>{ele.slot_begin}</td>
-                            </tr>
-                        )
-                    })}
-                    {props.track.responseData.data.length === 0 ? <tr><td colSpan="3">No records found</td></tr> : <span />}
-                </tbody>
-            </Table>
+                        {trackRData.length === 0 ? <tr><td colSpan="3">No records found</td></tr> : trackRData.map((ele, index) => {
+                            return (
+                                <tr key={index + 1}>
+                                    <td>{index + 1}</td>
+                                    <td>{ele.shop_id}</td>
+                                    <td>{ele.slot_begin}</td>
+                                </tr>
+                            )
+                        })}
+                    </tbody>
+                </Table>
+            </div>
         </div>
     )
 }
@@ -132,39 +141,39 @@ function SuspectsTable(props) {
     // console.log(props)
 
     return (<div className='table-container'>
-        <div>
+        <div className='table-container-header'>
             <div>
                 <span className='customer-title'>List of Carriers</span>
 
 
             </div>
         </div>
+        <div className='tableFixHead'>
+            <Table striped bordered hover>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                    </tr>
+                </thead>
+                <tbody>
 
-        <Table striped bordered hover>
-            <thead>
-                <tr>
-                    <th>#</th>
-                    <th>Name</th>
-                    <th>Address</th>
-                    <th>Phone</th>
-                </tr>
-            </thead>
-            <tbody>
-                {props.carrier.responseData.map((ele, index) => {
-                    // console.log(ele.slot_begin)
-
-                    return (
-                        <tr>
-                            <td>{index + 1}</td>
-                            <td>{ele.name}</td>
-                            <td>{ele.address}</td>
-                            <td>{ele.phone}</td>
-                        </tr>
-                    )
-                })}
-                {props.carrier.responseData.length === 0 ? <tr><td colspan="4">No records found</td></tr> : <span />}
-            </tbody>
-        </Table>
+                    {props.carrier.responseData.length === 0 ? <tr><td colspan="4">No records found</td></tr> : props.carrier.responseData.map((ele, index) => {
+                        // console.log(ele.slot_begin)
+                        return (
+                            <tr key={index + 1}>
+                                <td>{index + 1}</td>
+                                <td>{ele.name}</td>
+                                <td>{ele.address}</td>
+                                <td>{ele.phone}</td>
+                            </tr>
+                        )
+                    })}
+                </tbody>
+            </Table>
+        </div>
     </div>)
 }
 
@@ -265,10 +274,10 @@ export default class Admin extends Component {
         showTableClone.showTable = false;
         this.setState({
             track,
-            carrier:showTableClone
-            
+            carrier: showTableClone
+
         })
-        
+
     }
 
     fetchCarrierNamesWithSideEffects = async (next) => {
@@ -300,7 +309,7 @@ export default class Admin extends Component {
         let track = Object.assign({}, this.state.track)
         // console.log(id)
         let carrier = Object.assign({}, this.state.carrier)
-        carrier.showTable = false
+        // carrier.showTable = false
         carrier.loading = true
         let apiUrl = BASE_URL + "/api/carrier/add"
         let resJson = await axios.post(apiUrl, { "id": id })
@@ -312,13 +321,13 @@ export default class Admin extends Component {
             carrier.error = false
             // carrier.showTable = true
             track.showTable = true;
-            carrier.showTable = false;
+            // carrier.showTable = false;
             this.setState({ track, carrier })
 
 
         }
         else {
-            carrier.showTable = false;
+            // carrier.showTable = false;
             carrier.loading = false;
             carrier.responseData = []
             carrier.error = "Error getting carrier information"
@@ -362,13 +371,16 @@ export default class Admin extends Component {
     handleTrackSubmit = (e) => {
         e.preventDefault()
         let track = Object.assign({}, this.state.track)
+        let carrier = Object.assign({}, this.state.carrier)
+        carrier.showTable = false
         track.loading = true
         track.error = false
-        this.setState(track)
+        this.setState({ track })
         let apiUrl = BASE_URL + '/api/track'
-        let cust_deets = e.target.elements.customerId.value
+        let cust_deets = e.target.elements.customerId.value.trim()
         let email_string = cust_deets.split("(")
-        if (email_string.length <= 1) {
+        if (email_string.length <= 1 || !email_string[1].includes(')')) {
+            console.log("hihihihihihihi")
             track.showModal = true
             track.showTable = false
             track.responseData = {}
@@ -378,9 +390,10 @@ export default class Admin extends Component {
             return;
         }
         email_string = email_string[1]
-        // console.log("email string:", email_string)
-        let email = email_string.substring(0, email_string.length - 2)
-        // console.log("email::: ", email)
+        console.log("email string:", email_string)
+        let email = email_string.split(')')[0]
+
+        console.log("email::: ", typeof (email))
         let cust_id = this.state.names.with_ids.filter(ele => {
             if (ele.email === email)
                 return ele.id
@@ -396,6 +409,7 @@ export default class Admin extends Component {
             // console.log(response)
 
             if (response.status == 200) {
+                console.log(response)
                 // console.log("this is reposens", response.data.track_info)
                 this.handleModalClose()
                 track.responseData = {
@@ -407,6 +421,7 @@ export default class Admin extends Component {
                 track.showTable = true
                 track.showModal = false
                 track.error = false
+                carrier.showTable = false
 
             }
             else {
@@ -414,8 +429,9 @@ export default class Admin extends Component {
                 track.showTable = false
                 track.responseData = {}
                 track.error = "No track information for given info"
+                carrier.showTable = true
             }
-            this.setState({ track })
+            this.setState({ track, carrier })
         });
     }
 
@@ -430,39 +446,46 @@ export default class Admin extends Component {
                 <img alt="hero" className="hero" src={Hero} />
                 <div className="UserNavbar">
                     <label className="titleAdmin">SHOPTIK</label>
-                    <Button className="logoutButton" variant="danger" onClick={this.handleLogout}>Logout</Button>
+
                     <div className='d-inline sideNav'>
                         {/* <img className="shopIcon" onClick={this.handleLogout} src={ShopLogo} alt="icon" />
                         <label className="logoutTextAdmin" onClick={this.handleLogout} >Logout</label> */}
                         <div className='welcomeInfo'>
-                            <span>Welcome, {this.state.admin.name}  </span>
-                            <br />
-                            <span> ADMIN ID : {this.state.admin.id}</span>
+                            <div style={{ marginTop: "20px", fontSize: "15px" }}>
+                                <span>Welcome, {this.state.admin.name}  </span>
+                                <br />
+                                <span> ADMIN ID : {this.state.admin.id}</span>
+                            </div>
+                            <Button className="logoutButton text-center" variant="danger" onClick={this.handleLogout}>Logout</Button>
+
                         </div>
                     </div>
                 </div>
                 <div className="mainbg">
                     <div className='mainbg-body text-center d-flex justify-content-center'>
-                        {this.state.track.showTable && (
-                            <div>
-                                <CustomTable handleMarkAsCarrier={this.handleMarkAsCarrier} carrier={this.state.carrier} track={this.state.track} showContactTable = {this.showContactTable}/>
-                            </div>
-                        )}
-                        {this.state.track.contactTable && (
-                            <div>
-                                <TrackCustomersTable carrier = {this.state.carrier} track={this.state.track} />
-                            </div>
-                        )}
-                        {this.state.carrier.showTable && (
-                            <div>
-                                <SuspectsTable carrier={this.state.carrier} />
-                            </div>)
-                        }
+                      
+
+                            {this.state.track.showTable && (
+                                <div>
+                                    <CustomTable handleMarkAsCarrier={this.handleMarkAsCarrier} carrier={this.state.carrier} track={this.state.track} showContactTable={this.showContactTable} />
+                                </div>
+                            )}
+                            {this.state.track.contactTable && (
+                                <div>
+                                    <TrackCustomersTable carrier={this.state.carrier} track={this.state.track} />
+                                </div>
+                            )}
+                            {this.state.carrier.showTable && (
+                                <div>
+                                    <SuspectsTable carrier={this.state.carrier} />
+                                </div>
+                            )}
+                   
                     </div>
                     <div className="bottom-buttons text-center">
                         <div className='row text-center'>
                             <div className='col text-center'>
-                                <Button onClick={this.handleShowTrackForm} className='bottom-buttons-item'>Track a Person</Button>
+                                <Button variant="primary" onClick={this.handleShowTrackForm} className='bottom-buttons-item'>Track a Person</Button>
                                 <Button variant="danger" onClick={this.handleShowCarriersForm} className='bottom-buttons-item'>  {this.state.carrier.loading && <Spinner animation="border" variant='danger' /> || 'Show List of Carriers'}</Button>
                             </div>
                         </div>
@@ -491,14 +514,14 @@ export default class Admin extends Component {
                                         offsetY={20}
                                         minChars={1}
                                         trigger={''}
+                                        spacer={''}
                                         Component={"input"}
                                         className="autocomplete-text"
                                         name='customerId'
                                     // matchAny
                                     />
                                 </div>
-                                <Form.Text className="text-muted">
-                                </Form.Text>
+
                             </Form.Group>
 
                             <Form.Group >
@@ -508,14 +531,24 @@ export default class Admin extends Component {
                                         name='date'
                                         selected={this.state.track.dateFrom}
                                         onChange={this.handleTrackDate}
+                                        dateFormat="dd - MM - yyyy"
                                     />
                                 </div>
                             </Form.Group>
+                            <Form.Text style={{ cursor: "pointer" }} className="text-muted" onClick={() => {
+                                let track = Object.assign({}, this.state.track)
+                                track.dateFrom = new Date("2020", "02", "24", "00", "00", "00")
+                                this.setState({
+                                    track
+                                })
+                            }}>
+                                Set date to beginning of lockdown (24 March 2020)
+                                </Form.Text>
                             <center>
                                 <Button variant="primary" type='submit' name='track'>
                                     {this.state.track.loading && <Spinner animation="border" variant='primary' /> || 'Track'}
                                 </Button>
-                                {this.state.track.error && <div style={{ color: 'red' }}>No information found for given ID</div>}
+                                {this.state.track.error && <div style={{ color: 'red' }}>{this.state.track.error}</div>}
                             </center>
                         </Form>
                     </Modal.Body>
