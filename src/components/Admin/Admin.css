@@ -116,6 +116,12 @@ word-wrap: break-word;
     border-radius: 20px;
     margin: 10px;
 }
+.contacts-button{
+    font-family: 'Montserrat', sans-serif;
+    border:none;
+    border-radius: 20px;
+    margin: 10px;
+}
 
 .bottom-buttons-item:hover{
     /* font-family: 'Montserrat', sans-serif; */
@@ -181,9 +187,15 @@ font-size: large;
 }
 
 .track-display-span{
-float: right;
-margin-top: 10px;
+/* float: right; */
+/* margin-top: 10px; */
 color: red;
+}
+
+.carrier-button{
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .logoutTextAdmin{

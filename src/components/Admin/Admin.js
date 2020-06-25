@@ -27,6 +27,8 @@ function TrackCustomersTable(props) {
         var d = new Date(Date.UTC(t[0], t[1] - 1, t[2], t[3], t[4], t[5]));
         return ele.id !== props.track.responseData.id && d.getTime() >= props.track.dateFrom.getTime()
     })
+
+    let carrier_names = props.carrier.responseData.map(value => value.name);
     return (
         <div className='table-container'>
             <div className='table-container-header'>
@@ -50,9 +52,11 @@ function TrackCustomersTable(props) {
                             <tr><td colSpan={6}>No records found</td></tr> :
                             global_cust_without_id.map((ele, index) => {
                                 return (
-                                    <tr key={index + 1}>
+                                    <tr key={index + 1}
+                                        style={carrier_names.includes(ele.name) ? { color: 'red' } : {}}
+                                    >
                                         <td>{index + 1}</td>
-                                        <td>{ele.name}</td>
+                                        <td >{ele.name}</td>
                                         <td>{ele.address}</td>
                                         <td>{ele.shop_id}</td>
                                         <td>{ele.slot}</td>
@@ -77,7 +81,7 @@ function CustomTable(props) {
     let cfrd = props.carrier.responseData.filter(ele => {
         return ele.id === props.track.responseData.id
     })
-    console.log("props.log.responesData: ", props.track.responseData.data)
+    // console.log("props.log.responesData: ", props.track.responseData.data)
     let trackRData = props.track.responseData.data.filter(ele => {
         var t = ele.slot_begin.split(/[- :]/);
         var dat = props.track.dateFrom
@@ -86,30 +90,40 @@ function CustomTable(props) {
         // console.log(props.track.dateFrom.getTime(), d.getTime())
         return d.getTime() >= dat.getTime()
     })
-    console.log('track R data: ', trackRData)
+    // console.log('track R data: ', trackRData)
     // console.log(props.carrier.responseData)
     // console.log("this is cfrd:::: ", cfrd)
     return (
         <div className='table-container'>
-            <div className='table-container-header'>
-                {cfrd.length != 0 ?
-                    <span style={{ marginTop: "15px" }} className="track-display-span">Carrier</span> :
-                    <span><Button onClick={props.handleMarkAsCarrier} variant='danger' className='bottom-buttons-item track-display-button'>
-                        {props.carrier.loading && <Spinner animation="border" variant='danger' /> || 'Mark as carrier'}
-                    </Button></span>
-                }
-                <span><Button variant="warning" onClick={props.showContactTable} className="bottom-buttons-item track-display-button">
-                    Possible contacts
-                    </Button></span>
-                <div>
+            <div className='row table-container-header d-flex'>
+                <div className='col carrier-button'>
+                    <span style = {cfrd.length!=0 ? {display: 'inline-flex', color: 'red'} : {}} className = {cfrd.length!=0 ? "" : ""}> 
+                        {cfrd.length != 0 ? 'Carrier' : <Button onClick={props.handleMarkAsCarrier} variant='danger' className='contacts-button float-right'>
+                            {props.carrier.loading ? <Spinner animation="border" variant='danger' /> : 'Mark as carrier'}
+                        </Button>}
+                    </span>
+                </div>
+                <div className='col'>
+                    <span><Button variant="warning" onClick={props.showContactTable} className="contacts-button float-left">
+                        Possible contacts
+                    </Button>
+                    </span>
+                </div>
 
-                    <div className='customer-title'>{props.track.responseData.name}</div>
+            </div>
 
 
-
-
+            <div className=' row customer-title'>
+                <div className="col">
+                    {props.track.responseData.name}
                 </div>
             </div>
+
+
+
+
+
+
             <div className='tableFixHead'>
                 <Table striped bordered hover>
                     <thead>
@@ -133,7 +147,7 @@ function CustomTable(props) {
                     </tbody>
                 </Table>
             </div>
-        </div>
+        </div >
     )
 }
 
@@ -463,24 +477,24 @@ export default class Admin extends Component {
                 </div>
                 <div className="mainbg">
                     <div className='mainbg-body text-center d-flex justify-content-center'>
-                      
 
-                            {this.state.track.showTable && (
-                                <div>
-                                    <CustomTable handleMarkAsCarrier={this.handleMarkAsCarrier} carrier={this.state.carrier} track={this.state.track} showContactTable={this.showContactTable} />
-                                </div>
-                            )}
-                            {this.state.track.contactTable && (
-                                <div>
-                                    <TrackCustomersTable carrier={this.state.carrier} track={this.state.track} />
-                                </div>
-                            )}
-                            {this.state.carrier.showTable && (
-                                <div>
-                                    <SuspectsTable carrier={this.state.carrier} />
-                                </div>
-                            )}
-                   
+
+                        {this.state.track.showTable && (
+                            <div>
+                                <CustomTable handleMarkAsCarrier={this.handleMarkAsCarrier} carrier={this.state.carrier} track={this.state.track} showContactTable={this.showContactTable} />
+                            </div>
+                        )}
+                        {this.state.track.contactTable && (
+                            <div>
+                                <TrackCustomersTable carrier={this.state.carrier} track={this.state.track} />
+                            </div>
+                        )}
+                        {this.state.carrier.showTable && (
+                            <div>
+                                <SuspectsTable carrier={this.state.carrier} />
+                            </div>
+                        )}
+
                     </div>
                     <div className="bottom-buttons text-center">
                         <div className='row text-center'>
