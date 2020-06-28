@@ -41,3 +41,10 @@ For production, run ```npm run build```
 
 ##### Backend :runner:
 For instructions on setting up backend including the blockchain, refer [the backend repo for the project](https://github.com/gigatesseract/ShopTikBackend/blob/master/README.md)
+
+### Contributors (and team members)
+* [Jahnavi Srividya](https://github.com/JahnaviSrividya) 
+* [Jay Vishaal J](https://github.com/jayvishaalj)
+* [S Prathiba](https://github.com/prathiba0311)
+* [Sanjana](https://github.com/Sanj-ana)
+* [N Praveen Chandhar](https://github.com/gigatesseract)
