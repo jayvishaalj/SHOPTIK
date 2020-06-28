@@ -33,11 +33,11 @@ Shoptik believes in ensuring customers’ safety and health during their trips t
 ## SHOP SAFE! STAY SAFE! :open_hands:
 
 
-### Setting up the application
-##### Frontend
+### Setting up the application :house:
+##### Frontend :runner:
 Install all dependencies - ```npm install```
 Run the development server - ```npm start```
 For production, run ```npm run build```
 
-##### Backend
+##### Backend :runner:
 For instructions on setting up backend including the blockchain, refer [the backend repo for the project](https://github.com/gigatesseract/ShopTikBackend/blob/master/README.md)
