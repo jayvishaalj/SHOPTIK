@@ -1,0 +1,3 @@
+[submodule "ShopTikBackend"]
+	path = ShopTikBackend
+	url = https://github.com/gigatesseract/ShopTikBackend
